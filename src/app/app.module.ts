@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { KanbanComponent } from './layout/kanban/kanban.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
    declarations: [
@@ -18,7 +19,8 @@ import { KanbanComponent } from './layout/kanban/kanban.component';
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      MaterialModule
+      MaterialModule,
+      FlexLayoutModule
    ],
    providers: [],
    bootstrap: [
