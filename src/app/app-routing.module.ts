@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { KanbanComponent } from './layout/kanban/kanban.component';
+import { CoreZeroComponent } from './layout/core-zero/core-zero.component';
+import { CoreOneComponent } from './layout/core-one/core-one.component';
 
 
 const routes: Routes = [
   {path: '', component: LayoutComponent, children: [
-    {path: 'kanban', component: KanbanComponent}
+    { path: 'core-zero', component: CoreZeroComponent },
+    { path: 'core-one', component: CoreOneComponent }
   ]},
 ];
 
