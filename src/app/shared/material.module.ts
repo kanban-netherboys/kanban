@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const materials = [
@@ -9,6 +14,10 @@ const materials = [
     MatToolbarModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
     DragDropModule
 ];
 

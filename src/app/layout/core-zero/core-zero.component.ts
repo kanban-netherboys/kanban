@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { TaskService } from '../../shared/services/task.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up/add-task-pop-up.component';
+import { Task } from 'src/app/shared/models/task.model';
 
 @Component({
   selector: 'app-core-zero',
@@ -7,6 +11,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./core-zero.component.scss']
 })
 export class CoreZeroComponent implements OnInit {
+
+  task: Task;
 
   backlog = [
     'Get to work',
@@ -39,9 +45,27 @@ export class CoreZeroComponent implements OnInit {
     'mno'
   ];
 
-  constructor() { }
+  constructor(private taskService: TaskService,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
+    this.getAllTasks();
+  }
+
+  getAllTasks() {
+    this.taskService.getAllTasks().subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  getSingleTask(id: number) {
+    this.taskService.getSingleTask(id).subscribe((res: {kanbanList: Task[]}) => {
+      console.log(res.kanbanList);
+    });
+  }
+
+  addTaskDialog() {
+    return this.dialogService.openDialog(AddTaskPopUpComponent);
   }
 
   drop(event: CdkDragDrop<string[]>) {

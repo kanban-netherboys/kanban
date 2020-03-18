@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CoreOneComponent } from './core-one.component';
-import { SharedModule } from 'src/app/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [CoreOneComponent],

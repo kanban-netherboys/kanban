@@ -1,7 +1,10 @@
-<div cdkDropListGroup fxLayout="row">
+<div cdkDropListGroup fxLayout="row" style="padding: 20px;">
 
   <div class="example-container">
-    <h2>Backlog</h2>
+    <div fxLayout="row" style="justify-content: space-between">
+      <h2>Backlog</h2>
+      <h2 style="cursor:pointer; " (click)="addTaskDialog();">+</h2>
+    </div>
     <div
       cdkDropList
       [cdkDropListData]="backlog"
@@ -12,7 +15,10 @@
   </div>
 
   <div class="example-container">
-    <h2>Next</h2>
+    <div fxLayout="row" style="justify-content: space-between">
+      <h2>Next</h2>
+      <h2 style="cursor:pointer; " (click)="addTaskDialog();">+</h2>
+    </div>
     <div
       cdkDropList
       [cdkDropListData]="next"
@@ -23,7 +29,10 @@
   </div>
 
   <div class="example-container">
-    <h2>In Progress</h2>
+    <div fxLayout="row" style="justify-content: space-between">
+      <h2>In progress</h2>
+      <h2 style="cursor:pointer; " (click)="addTaskDialog();">+</h2>
+    </div>
     <div
       cdkDropList
       [cdkDropListData]="inProgress"
@@ -34,7 +43,10 @@
   </div>
 
   <div class="example-container">
-    <h2>Done</h2>
+    <div fxLayout="row" style="justify-content: space-between">
+      <h2>Done</h2>
+      <h2 style="cursor:pointer; " (click)="addTaskDialog();">+</h2>
+    </div>
     <div
       cdkDropList
       [cdkDropListData]="done"
