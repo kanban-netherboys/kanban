@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CoreZeroComponent } from './core-zero.component';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [CoreZeroComponent]
+  declarations: [CoreZeroComponent],
+  imports: [SharedModule],
+  exports: [SharedModule]
 })
 export class CoreZeroModule { }
