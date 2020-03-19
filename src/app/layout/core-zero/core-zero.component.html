@@ -3,9 +3,9 @@
     <div class="tasks-tab">
       <div class="tasks-tab-header">
         <div class="task-tab-title">
-          <span class="material-icons">list</span>
+          <span class="material-icons" style="color:#41A1F5;">list</span>
           BACKLOG
-          <span class="add-task-button" (click)="addTaskDialog('Backlog')">+</span>
+          <span class="add-task-button" style="color:#41A1F5;" (click)="addTaskDialog('Backlog')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
@@ -15,7 +15,7 @@
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Backlog')"
       >
-        <div class="task" *ngFor="let item of backlog" cdkDrag>
+        <div class="task" style="border-bottom:4px solid #41A1F5;" *ngFor="let item of backlog" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
             <span class="delete-icon" (click)="delTask(item.id)">D</span>
@@ -33,9 +33,9 @@
     <div class="tasks-tab">
       <div class="tasks-tab-header">
         <div class="task-tab-title">
-          <span class="material-icons">list</span>
+          <span class="material-icons" style="color:#E8577A;">list</span>
           NEXT
-          <span class="add-task-button" (click)="addTaskDialog('Next')">+</span>
+          <span class="add-task-button" style="color:#E8577A;" (click)="addTaskDialog('Next')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
@@ -45,7 +45,7 @@
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Next')"
       >
-        <div class="task" *ngFor="let item of next" cdkDrag>
+        <div class="task" style="border-bottom:4px solid #E8577A;" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
             <span class="delete-icon" (click)="delTask(item.id)">D</span>
@@ -63,9 +63,9 @@
     <div class="tasks-tab">
       <div class="tasks-tab-header">
         <div class="task-tab-title">
-          <span class="material-icons">list</span>
+          <span class="material-icons" style="color:#FFC400;">list</span>
           IN PROGRESS
-          <span class="add-task-button" (click)="addTaskDialog('InProgress')">+</span>
+          <span class="add-task-button" style="color:#FFC400;" (click)="addTaskDialog('InProgress')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
@@ -75,7 +75,7 @@
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'InProgress')"
       >
-        <div class="task" *ngFor="let item of inProgress" cdkDrag>
+        <div class="task" style="border-bottom:4px solid #FFC400;" *ngFor="let item of inProgress" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
             <span class="delete-icon" (click)="delTask(item.id)">D</span>
@@ -93,9 +93,9 @@
     <div class="tasks-tab">
       <div class="tasks-tab-header">
         <div class="task-tab-title">
-          <span class="material-icons">list</span>
+          <span class="material-icons" style="color:#45E217;">list</span>
           DONE
-          <span class="add-task-button" (click)="addTaskDialog('Done')">+</span>
+          <span class="add-task-button" style="color:#45E217;" (click)="addTaskDialog('Done')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
@@ -105,7 +105,7 @@
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Done')"
       >
-        <div class="task" *ngFor="let item of done" cdkDrag>
+        <div class="task" style="border-bottom:4px solid #45E217;" *ngFor="let item of done" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
             <span class="delete-icon" (click)="delTask(item.id)">D</span>

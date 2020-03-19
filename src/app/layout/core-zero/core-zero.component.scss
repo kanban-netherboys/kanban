@@ -26,6 +26,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: rgb(247, 247, 247)
   }
   
   .tasks-tab {
@@ -33,7 +34,6 @@
     min-height: 100vh;
     margin-right: 25px;
     background: #E5E5E5;
-    border: 3px solid #FFFFFF;
     border-radius: 14px;
     font-family: 'Roboto', sans-serif;
     color: #311756;
@@ -60,12 +60,12 @@
   
   .add-task-button {
     margin-left: auto;
-    color: #FFC400; /*  this color should be changed with js */
+    // color: #FFC400; /*  this color should be changed with js */
   }
   
   .material-icons {
     margin-right: 8px;
-    color: #FFC400; /*  this color should be changed with js */
+    // color: #FFC400; /*  this color should be changed with js */
   }
   
   .delete-icon {
