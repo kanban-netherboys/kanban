@@ -8,6 +8,7 @@ interface DialogConfig {
     hasBackdrop?: boolean;
     height?: string;
     width?: string;
+    data?: any;
 }
 
 @Injectable()
@@ -21,6 +22,7 @@ export class DialogService {
         dialogConfig.hasBackdrop = config && config.hasBackdrop !== undefined ? config.hasBackdrop : true;
         if (config && config.height !== undefined) { dialogConfig.height = config.height; }
         if (config && config.width !== undefined) { dialogConfig.width = config.width; }
+        if (config && config.data !== undefined) { dialogConfig.data = config.data; }
         return this.dialog.open(component, dialogConfig);
     }
 

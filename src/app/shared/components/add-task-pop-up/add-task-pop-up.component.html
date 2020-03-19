@@ -1,12 +1,20 @@
 <div class="example-container">
+  <form [formGroup]="signupForm">
     <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>
-      <input matInput>
+      <input 
+        matInput 
+        formControlName="title"
+        type="text">
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Opis</mat-label>
-      <textarea matInput></textarea>
+      <textarea 
+        matInput
+        formControlName="description"
+        type="text">
+      </textarea>
     </mat-form-field>
     <!-- <br>
     <mat-form-field appearance="fill">
@@ -16,9 +24,11 @@
         <mat-option value="option2">Option2</mat-option>
       </mat-select>
     </mat-form-field> -->
+  </form>
 </div>
 
 <div fxLayout="row">
-  <button mat-button>Anuluj</button>
-  <button mat-button>Dodaj</button>
+  <button mat-button mat-dialog-close>Anuluj</button>
+  <button mat-button mat-dialog-close (click)="addTask({title: signupForm.value.title, description: signupForm.value.description, status: data.status });" *ngIf="!editMode">Dodaj</button>
+  <button mat-button mat-dialog-close (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" *ngIf="editMode">Edytuj</button>
 </div>

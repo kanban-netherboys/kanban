@@ -12,38 +12,11 @@ import { Task } from 'src/app/shared/models/task.model';
 })
 export class CoreZeroComponent implements OnInit {
 
-  task: Task;
-
-  backlog = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-
-  next = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
-  inProgress = [
-    'Siema',
-    'Co tam',
-    'Byku',
-    'slychac',
-    'u ciebie'
-  ];
-
-  done = [
-    'abc',
-    'def',
-    'ghi',
-    'jkl',
-    'mno'
-  ];
+  tasks: Task[];
+  backlog = [];
+  next = [];
+  inProgress = [];
+  done = [];
 
   constructor(private taskService: TaskService,
               private dialogService: DialogService) { }
@@ -53,22 +26,47 @@ export class CoreZeroComponent implements OnInit {
   }
 
   getAllTasks() {
-    this.taskService.getAllTasks().subscribe(res => {
-      console.log(res);
+    this.taskService.getAllTasks().subscribe((res: {kanbanList: Task[]}) => {
+      this.tasks = res.kanbanList;
+      this.backlog = res.kanbanList.filter(task => task.status === 'Backlog');
+      this.next = res.kanbanList.filter(task => task.status === 'Next');
+      this.inProgress = res.kanbanList.filter(task => task.status === 'InProgress');
+      this.done = res.kanbanList.filter(task => task.status === 'Done');
+
     });
   }
 
-  getSingleTask(id: number) {
-    this.taskService.getSingleTask(id).subscribe((res: {kanbanList: Task[]}) => {
-      console.log(res.kanbanList);
+  // addTask(taskData: Task) {
+  //   this.taskService.addTask(taskData).subscribe();
+  // }
+
+  // getSingleTask(id: number) {
+  //   this.taskService.getSingleTask(id).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
+
+  addTaskDialog(status: string) {
+    const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
+      data: { status: status }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllTasks();
     });
   }
 
-  addTaskDialog() {
-    return this.dialogService.openDialog(AddTaskPopUpComponent);
+  editTaskDialog(id: number) {
+    const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
+      data: { id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllTasks();
+    });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event, status: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -76,6 +74,10 @@ export class CoreZeroComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+      const title = event.container.data[event.currentIndex].title;
+      const description = event.container.data[event.currentIndex].description;
+      const id = event.container.data[event.currentIndex].id;
+      this.taskService.patchTask({title, description, status}, id).subscribe();
     }
   }
 

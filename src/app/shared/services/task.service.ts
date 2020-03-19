@@ -16,8 +16,12 @@ constructor(private http: HttpClient) { }
     return this.http.get(environment.apiUrl + 'KanbanTask/BySingleTask/?kanbanTaskId=' + id);
   }
 
-  // addTask(taskData: Task) {
-  //   return this.http.post(environment.apiUrl + '/KanbanTask', taskData);
-  // }
+  addTask(taskData: Task) {
+    return this.http.post(environment.apiUrl + 'KanbanTask', taskData, { responseType: 'text' });
+  }
+
+  patchTask(taskData, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/' + id, taskData, { responseType: 'text' });
+  }
 
 }

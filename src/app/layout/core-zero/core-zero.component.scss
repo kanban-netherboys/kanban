@@ -1,35 +1,4 @@
-.example-container {
-    width: 400px;
-    max-width: 100%;
-    margin: 0 25px 25px 0;
-    display: inline-block;
-    vertical-align: top;
-  }
-  
-  .example-list {
-    border: solid 1px #ccc;
-    min-height: 60px;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    display: block;
-  }
-  
-  .example-box {
-    padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
-    font-size: 14px;
-  }
-  
-  .cdk-drag-preview {
+ .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
@@ -52,3 +21,99 @@
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .tasks-tab {
+    width: 295px;
+    min-height: 100vh;
+    margin-right: 25px;
+    background: #E5E5E5;
+    border: 3px solid #FFFFFF;
+    border-radius: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #311756;
+    font-weight: 500;
+  }
+  
+  .tasks-tab-header {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px #00000033;
+    border-radius: 4px;
+    height: 43px;
+    font-size: 14px;
+  }
+  
+  .task-tab-title {
+    padding: 12px;
+    letter-spacing: 1.25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 10px;
+  }
+  
+  .add-task-button {
+    margin-left: auto;
+    color: #FFC400; /*  this color should be changed with js */
+  }
+  
+  .material-icons {
+    margin-right: 8px;
+    color: #FFC400; /*  this color should be changed with js */
+  }
+  
+  .delete-icon {
+    display: none;
+  }
+  
+  .edit-icon {
+    display: none;
+    margin-right: 10px;
+  }
+  
+  .navigation-items {
+    display: flex;
+    position: relative;
+    top: 0px;
+    float: right;
+    padding-right: 5px;
+  }
+  
+  .task:hover .edit-icon {
+      display: block;
+  }
+  
+  .task:hover .delete-icon {
+      display: block;
+  }
+  
+  .task {
+    width: 254px;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 4px solid #FFC400;  /*  this color should be changed with js */
+    box-shadow: 0px 1px 3px #0000001A;
+    padding: 10px;
+    margin: 11px;
+    word-wrap: break-word;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .task-title {
+    padding-right: 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  .task-description {
+    padding-top: 5px;
+  }
+  
