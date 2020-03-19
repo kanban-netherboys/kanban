@@ -18,7 +18,7 @@
         <div class="task" *ngFor="let item of backlog" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
-            <span class="delete-icon">D</span>
+            <span class="delete-icon" (click)="delTask(item.id)">D</span>
           </div>
           <div class="task-title">
             {{ item.title }}
@@ -48,7 +48,7 @@
         <div class="task" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
-            <span class="delete-icon">D</span>
+            <span class="delete-icon" (click)="delTask(item.id)">D</span>
           </div>
           <div class="task-title">
             {{ item.title }}
@@ -78,7 +78,7 @@
         <div class="task" *ngFor="let item of inProgress" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
-            <span class="delete-icon">D</span>
+            <span class="delete-icon" (click)="delTask(item.id)">D</span>
           </div>
           <div class="task-title">
             {{ item.title }}
@@ -108,7 +108,7 @@
         <div class="task" *ngFor="let item of done" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon" (click)="editTaskDialog(item.id)">E</span>
-            <span class="delete-icon">D</span>
+            <span class="delete-icon" (click)="delTask(item.id)">D</span>
           </div>
           <div class="task-title">
             {{ item.title }}

@@ -81,4 +81,8 @@ export class CoreZeroComponent implements OnInit {
     }
   }
 
+  delTask(id: number) {
+    this.taskService.deleteTask(id).subscribe(() => this.getAllTasks());
+  }
+
 }

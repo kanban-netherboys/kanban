@@ -24,4 +24,8 @@ constructor(private http: HttpClient) { }
     return this.http.patch(environment.apiUrl + 'KanbanTask/' + id, taskData, { responseType: 'text' });
   }
 
+  deleteTask(id: number) {
+    return this.http.delete(environment.apiUrl + 'KanbanTask?kanbanTaskId=' + id, { responseType: 'text' });
+  }
+
 }
