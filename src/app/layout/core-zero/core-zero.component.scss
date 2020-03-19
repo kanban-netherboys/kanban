@@ -72,11 +72,16 @@
   
   .delete-icon {
     display: none;
+    font-size: 19px; 
+    margin-right:-14px; 
+    margin-top:-6px;
   }
   
   .edit-icon {
     display: none;
     margin-right: 10px;
+    font-size: 19px; 
+    margin-top:-6px;
   }
   
   .navigation-items {
@@ -118,4 +123,3 @@
   .task-description {
     padding-top: 5px;
   }
-  

@@ -48,7 +48,9 @@ export class CoreZeroComponent implements OnInit {
 
   addTaskDialog(status: string) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { status: status }
+      data: { status: status },
+      height: '430px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -58,7 +60,9 @@ export class CoreZeroComponent implements OnInit {
 
   editTaskDialog(id: number) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { id: id}
+      data: { id: id},
+      height: '430px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(() => {

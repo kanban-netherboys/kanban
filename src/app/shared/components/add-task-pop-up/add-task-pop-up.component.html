@@ -1,6 +1,6 @@
 <div class="example-container">
   <form [formGroup]="signupForm">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" style="display: block;">
       <mat-label>Nazwa</mat-label>
       <input 
         matInput 
@@ -8,12 +8,13 @@
         type="text">
     </mat-form-field>
     <br>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" style="display: block;">
       <mat-label>Opis</mat-label>
       <textarea 
         matInput
         formControlName="description"
-        type="text">
+        type="text"
+        rows="10">
       </textarea>
     </mat-form-field>
     <!-- <br>
@@ -27,8 +28,31 @@
   </form>
 </div>
 
-<div fxLayout="row">
-  <button mat-button mat-dialog-close>Anuluj</button>
-  <button mat-button mat-dialog-close (click)="addTask({title: signupForm.value.title, description: signupForm.value.description, status: data.status });" *ngIf="!editMode">Dodaj</button>
-  <button mat-button mat-dialog-close (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" *ngIf="editMode">Edytuj</button>
+<div fxLayout="row" fxLayoutGap="10px" style="float: right;">
+
+  <button
+    mat-button 
+    mat-dialog-close
+    style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
+    Anuluj
+  </button>
+
+  <button 
+    mat-button 
+    mat-dialog-close 
+    (click)="addTask({title: signupForm.value.title, description: signupForm.value.description, status: data.status });" 
+    *ngIf="!editMode"
+    style="background-color: rgb(33, 214, 33); color: white;">
+    + Dodaj
+  </button>
+
+  <button 
+    mat-button 
+    mat-dialog-close 
+    (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" 
+    *ngIf="editMode"
+    style="background-color: rgb(33, 214, 33); color: white;">
+    Edytuj
+  </button>
+
 </div>
