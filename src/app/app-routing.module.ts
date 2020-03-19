@@ -6,10 +6,11 @@ import { CoreOneComponent } from './layout/core-one/core-one.component';
 
 
 const routes: Routes = [
-  {path: '', component: LayoutComponent, children: [
-    { path: 'core-zero', component: CoreZeroComponent },
-    { path: 'core-one', component: CoreOneComponent }
-  ]},
+  { path: '', component: CoreZeroComponent },
+  // {path: '', component: LayoutComponent, children: [
+  //   { path: 'core-zero', component: CoreZeroComponent },
+  //   { path: 'core-one', component: CoreOneComponent }
+  // ]},
 ];
 
 @NgModule({
