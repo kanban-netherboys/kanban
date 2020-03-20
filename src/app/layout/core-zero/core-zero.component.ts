@@ -12,6 +12,8 @@ import { Task } from 'src/app/shared/models/task.model';
 })
 export class CoreZeroComponent implements OnInit {
 
+  WIPLimit = 3;
+
   tasks: Task[];
   backlog = [];
   next = [];
@@ -32,7 +34,7 @@ export class CoreZeroComponent implements OnInit {
       this.next = res.kanbanList.filter(task => task.status === 'Next');
       this.inProgress = res.kanbanList.filter(task => task.status === 'InProgress');
       this.done = res.kanbanList.filter(task => task.status === 'Done');
-
+      console.log(this.tasks);
     });
   }
 
@@ -47,15 +49,18 @@ export class CoreZeroComponent implements OnInit {
   // }
 
   addTaskDialog(status: string) {
-    const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { status: status },
-      height: '430px',
-      width: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getAllTasks();
-    });
+    if (status === 'Next' && this.next.length === this.WIPLimit || status === 'InProgress' && this.inProgress.length === this.WIPLimit) {
+      return;
+    } else {
+      const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
+        data: { status: status },
+        height: '430px',
+        width: '500px',
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.getAllTasks();
+      });
+    }
   }
 
   editTaskDialog(id: number) {
@@ -74,14 +79,18 @@ export class CoreZeroComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-      const title = event.container.data[event.currentIndex].title;
-      const description = event.container.data[event.currentIndex].description;
-      const id = event.container.data[event.currentIndex].id;
-      this.taskService.patchTask({title, description, status}, id).subscribe();
+        if (status === 'Next' && this.next.length === this.WIPLimit || status === 'InProgress' && this.inProgress.length === this.WIPLimit) {
+          return;
+        } else {
+          transferArrayItem(event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
+          const title = event.container.data[event.currentIndex].title;
+          const description = event.container.data[event.currentIndex].description;
+          const id = event.container.data[event.currentIndex].id;
+          this.taskService.patchTask({title, description, status}, id).subscribe();
+        }
     }
   }
 
