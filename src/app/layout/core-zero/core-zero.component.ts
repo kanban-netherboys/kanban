@@ -13,6 +13,7 @@ import { Task } from 'src/app/shared/models/task.model';
 export class CoreZeroComponent implements OnInit {
 
   WIPLimit = 3;
+  limitWarning = 'Exceeded!';
 
   tasks: Task[];
   backlog = [];
@@ -37,16 +38,6 @@ export class CoreZeroComponent implements OnInit {
       console.log(this.tasks);
     });
   }
-
-  // addTask(taskData: Task) {
-  //   this.taskService.addTask(taskData).subscribe();
-  // }
-
-  // getSingleTask(id: number) {
-  //   this.taskService.getSingleTask(id).subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
 
   addTaskDialog(status: string) {
       const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {

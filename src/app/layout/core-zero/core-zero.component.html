@@ -10,7 +10,7 @@
       <div class="tasks-tab-header">
         <div class="task-tab-title">
           <span class="material-icons" style="color:#41A1F5;">list</span>
-          BACKLOG
+          BACKLOG ({{backlog.length}})
           <span class="add-task-button" style="color:#41A1F5;" (click)="addTaskDialog('Backlog')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
@@ -40,7 +40,9 @@
       <div class="tasks-tab-header">
         <div class="task-tab-title">
           <span class="material-icons" style="color:#E8577A;">list</span>
-          NEXT
+          NEXT 
+          <span [style.color]="next.length>WIPLimit ? 'red' : ''" style="margin-left: 4px;">({{next.length}}/{{WIPLimit}})</span> 
+          <span class="limit-warning">{{next.length>WIPLimit ? limitWarning : ''}}</span>
           <span class="add-task-button" style="color:#E8577A;" (click)="addTaskDialog('Next')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
@@ -70,7 +72,9 @@
       <div class="tasks-tab-header">
         <div class="task-tab-title">
           <span class="material-icons" style="color:#FFC400;">list</span>
-          IN PROGRESS
+          IN PROGRESS 
+          <span [style.color]="inProgress.length>WIPLimit ? 'red' : ''" style="margin-left: 4px;">({{inProgress.length}}/{{WIPLimit}})</span> 
+          <span class="limit-warning">{{inProgress.length>WIPLimit ? limitWarning : ''}}</span>
           <span class="add-task-button" style="color:#FFC400;" (click)="addTaskDialog('InProgress')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
@@ -100,7 +104,7 @@
       <div class="tasks-tab-header">
         <div class="task-tab-title">
           <span class="material-icons" style="color:#45E217;">list</span>
-          DONE
+          DONE ({{done.length}})
           <span class="add-task-button" style="color:#45E217;" (click)="addTaskDialog('Done')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
