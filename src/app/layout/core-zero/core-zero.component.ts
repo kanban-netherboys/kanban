@@ -49,9 +49,6 @@ export class CoreZeroComponent implements OnInit {
   // }
 
   addTaskDialog(status: string) {
-    if (status === 'Next' && this.next.length === this.WIPLimit || status === 'InProgress' && this.inProgress.length === this.WIPLimit) {
-      return;
-    } else {
       const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
         data: { status: status },
         height: '430px',
@@ -60,7 +57,6 @@ export class CoreZeroComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.getAllTasks();
       });
-    }
   }
 
   editTaskDialog(id: number) {
@@ -79,9 +75,6 @@ export class CoreZeroComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-        if (status === 'Next' && this.next.length === this.WIPLimit || status === 'InProgress' && this.inProgress.length === this.WIPLimit) {
-          return;
-        } else {
           transferArrayItem(event.previousContainer.data,
             event.container.data,
             event.previousIndex,
@@ -90,7 +83,6 @@ export class CoreZeroComponent implements OnInit {
           const description = event.container.data[event.currentIndex].description;
           const id = event.container.data[event.currentIndex].id;
           this.taskService.patchTask({title, description, status}, id).subscribe();
-        }
     }
   }
 

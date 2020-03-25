@@ -8,24 +8,28 @@ export class TaskService {
 
 constructor(private http: HttpClient) { }
 
+  addTask(taskData: Task) {
+    return this.http.post(environment.apiUrl + 'KanbanTask', taskData, { responseType: 'text' });
+  }
+
+  deleteTask(id: number) {
+    return this.http.delete(environment.apiUrl + 'KanbanTask?kanbanTaskId=' + id, { responseType: 'text' });
+  }
+
   getAllTasks() {
     return this.http.get(environment.apiUrl + 'KanbanTask/AllTasks');
   }
 
   getSingleTask(id: number) {
-    return this.http.get(environment.apiUrl + 'KanbanTask/BySingleTask/?kanbanTaskId=' + id);
+    return this.http.get(environment.apiUrl + 'KanbanTask/BySingleTask?kanbanTaskId=' + id);
   }
 
-  addTask(taskData: Task) {
-    return this.http.post(environment.apiUrl + 'KanbanTask', taskData, { responseType: 'text' });
+  patchTask(taskData: Task, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTask?kanbanTaskId=' + id, taskData, { responseType: 'text' });
   }
 
-  patchTask(taskData, id: number) {
-    return this.http.patch(environment.apiUrl + 'KanbanTask/' + id, taskData, { responseType: 'text' });
-  }
-
-  deleteTask(id: number) {
-    return this.http.delete(environment.apiUrl + 'KanbanTask?kanbanTaskId=' + id, { responseType: 'text' });
+  patchTaskStatus(taskData: Task, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchStatus?kanbanTaskId=' + id, taskData, { responseType: 'text' });
   }
 
 }

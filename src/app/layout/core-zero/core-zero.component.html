@@ -41,7 +41,7 @@
         <div class="task-tab-title">
           <span class="material-icons" style="color:#E8577A;">list</span>
           NEXT
-          <span *ngIf="next.length < WIPLimit" class="add-task-button" style="color:#E8577A;" (click)="addTaskDialog('Next')">+</span>
+          <span class="add-task-button" style="color:#E8577A;" (click)="addTaskDialog('Next')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
@@ -71,7 +71,7 @@
         <div class="task-tab-title">
           <span class="material-icons" style="color:#FFC400;">list</span>
           IN PROGRESS
-          <span *ngIf="inProgress.length < WIPLimit" class="add-task-button" style="color:#FFC400;" (click)="addTaskDialog('InProgress')">+</span>
+          <span class="add-task-button" style="color:#FFC400;" (click)="addTaskDialog('InProgress')">+</span>
           <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
         </div>
       </div>
