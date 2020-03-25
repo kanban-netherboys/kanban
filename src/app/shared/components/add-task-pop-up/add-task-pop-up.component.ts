@@ -17,7 +17,7 @@ export class AddTaskPopUpComponent implements OnInit {
   editedTaskStatus: any;
 
   constructor(private taskService: TaskService,
-             @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({

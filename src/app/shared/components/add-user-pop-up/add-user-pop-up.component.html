@@ -1,0 +1,48 @@
+<div class="example-container">
+  <form [formGroup]="signupForm">
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>Name</mat-label>
+      <input 
+        matInput 
+        formControlName="name"
+        type="text">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>Surname</mat-label>
+      <input
+        matInput
+        formControlName="surname"
+        type="text">
+    </mat-form-field>
+  </form>
+</div>
+
+<div fxLayout="row" fxLayoutGap="10px" style="float: right;">
+
+  <button
+    mat-button 
+    mat-dialog-close
+    style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
+    Anuluj
+  </button>
+
+  <button 
+    mat-button 
+    mat-dialog-close 
+    (click)="addUser({name: signupForm.value.name, surname: signupForm.value.surname});" 
+    *ngIf="!editMode"
+    style="background-color: rgb(33, 214, 33); color: white;">
+    + Dodaj
+  </button>
+
+  <!-- <button 
+    mat-button 
+    mat-dialog-close 
+    (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" 
+    *ngIf="editMode"
+    style="background-color: rgb(33, 214, 33); color: white;">
+    Edytuj
+  </button> -->
+
+</div>

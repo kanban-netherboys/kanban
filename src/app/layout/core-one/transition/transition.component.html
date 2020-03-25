@@ -1,0 +1,145 @@
+<mat-toolbar color="primary" class="topbar">
+  <span class="ikona">    </span>
+  <span class="logo1">KANBAN BOARD</span>
+  <span class="logo2">PERSONAL KANBAN - CORE 0</span>
+</mat-toolbar>
+
+<div class="wrapper">
+  <div cdkDropListGroup fxLayout="row" style="padding: 20px;">
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color:#79fbeb;">person_outline</span>
+          TEAM MEMBER
+          <span class="add-task-button" style="color:#79fbeb;" (click)="addUserDialog()">+</span>
+        </div>
+      </div>
+      <div *ngFor="let user of users" class="member-1">
+        {{user.name}} {{user.surname}}
+      </div>
+    </div>
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color:#41A1F5;">list</span>
+          BACKLOG ({{backlog.length}})
+          <span class="add-task-button" style="color:#41A1F5;" (click)="addTaskDialog('Backlog')">+</span>
+          <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
+        </div>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="backlog"
+        class="tasks-tab"
+        (cdkDropListDropped)="drop($event, 'Backlog')"
+      >
+        <div class="task" style="border-bottom:4px solid #41A1F5;" *ngFor="let item of backlog" cdkDrag>
+          <div class="navigation-items">
+            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
+          </div>
+          <div class="task-title">
+            {{ item.title }}
+          </div>
+          <div class="task-description">
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color:#E8577A;">list</span>
+          NEXT 
+          <span [style.color]="next.length>WIPLimit ? 'red' : ''" style="margin-left: 4px;">({{next.length}}/{{WIPLimit}})</span> 
+          <span class="limit-warning">{{next.length>WIPLimit ? limitWarning : ''}}</span>
+          <span class="add-task-button" style="color:#E8577A;" (click)="addTaskDialog('Next')">+</span>
+          <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
+        </div>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="next"
+        class="tasks-tab"
+        (cdkDropListDropped)="drop($event, 'Next')"
+      >
+        <div class="task" style="border-bottom:4px solid #E8577A;" *ngFor="let item of next" cdkDrag>
+          <div class="navigation-items">
+            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
+          </div>
+          <div class="task-title">
+            {{ item.title }}
+          </div>
+          <div class="task-description">
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color:#FFC400;">list</span>
+          IN PROGRESS 
+          <span [style.color]="inProgress.length>WIPLimit ? 'red' : ''" style="margin-left: 4px;">({{inProgress.length}}/{{WIPLimit}})</span> 
+          <span class="limit-warning">{{inProgress.length>WIPLimit ? limitWarning : ''}}</span>
+          <span class="add-task-button" style="color:#FFC400;" (click)="addTaskDialog('InProgress')">+</span>
+          <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
+        </div>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="inProgress"
+        class="tasks-tab"
+        (cdkDropListDropped)="drop($event, 'InProgress')"
+      >
+        <div class="task" style="border-bottom:4px solid #FFC400;" *ngFor="let item of inProgress" cdkDrag>
+          <div class="navigation-items">
+            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
+          </div>
+          <div class="task-title">
+            {{ item.title }}
+          </div>
+          <div class="task-description">
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color:#45E217;">list</span>
+          DONE ({{done.length}})
+          <span class="add-task-button" style="color:#45E217;" (click)="addTaskDialog('Done')">+</span>
+          <!--  it should be <mat-button mat-icon-button>+</mat-button> -->
+        </div>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="done"
+        class="tasks-tab"
+        (cdkDropListDropped)="drop($event, 'Done')"
+      >
+        <div class="task" style="border-bottom:4px solid #45E217;" *ngFor="let item of done" cdkDrag>
+          <div class="navigation-items">
+            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
+          </div>
+          <div class="task-title">
+            {{ item.title }}
+          </div>
+          <div class="task-description">
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

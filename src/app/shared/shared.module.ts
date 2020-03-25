@@ -6,10 +6,13 @@ import { AddTaskPopUpComponent } from './components/add-task-pop-up/add-task-pop
 import { TaskService } from './services/task.service';
 import { DialogService } from './services/dialog.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddUserPopUpComponent } from './components/add-user-pop-up/add-user-pop-up.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
     declarations: [
-        AddTaskPopUpComponent
+        AddTaskPopUpComponent,
+        AddUserPopUpComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ],
     providers: [
         TaskService,
-        DialogService
+        DialogService,
+        UserService
     ]
 })
 export class SharedModule {}
