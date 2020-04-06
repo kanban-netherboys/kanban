@@ -74,6 +74,7 @@
     font-size: 19px; 
     margin-right:-14px; 
     margin-top:-6px;
+    color: grey;
   }
   
   .edit-icon {
@@ -81,6 +82,7 @@
     margin-right: 10px;
     font-size: 19px; 
     margin-top:-6px;
+    color: grey;
   }
   
   .navigation-items {
@@ -159,19 +161,23 @@
 }
 .member-1
 {
-    padding: 120px;
     letter-spacing: 1.5px;
     font-family: Roboto;
     font-size: 18px;
     text-transform: uppercase;
-    border-bottom: 2.5px double #c1c1c1;
+    // border-bottom: 2.5px double #c1c1c1;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .limit-warning {
   color: red;
   font-size: 10px;
   margin-left: 5px;
+}
+
+.cdk-drop-list {
+  min-height: 200px;
 }

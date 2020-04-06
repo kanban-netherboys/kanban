@@ -3,6 +3,9 @@ import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-task-pop-up',
@@ -16,13 +19,20 @@ export class AddTaskPopUpComponent implements OnInit {
   editMode = false;
   editedTaskStatus: any;
 
+  users: User[];
+
+  selected;
+  splitted;
+
   constructor(private taskService: TaskService,
+              private userService: UserService,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
       title: new FormControl(null),
-      description: new FormControl(null)
+      description: new FormControl(null),
+      person: new FormControl(null)
     });
 
     if (this.data.id !== undefined) {
@@ -33,14 +43,32 @@ export class AddTaskPopUpComponent implements OnInit {
         this.signupForm.patchValue({description: res.singleTask.description});
       });
     }
+
+    this.getAllUsers();
   }
 
-  addTask(taskData: Task) {
-    this.taskService.addTask(taskData).subscribe();
+  split() {
+    this.splitted = this.selected.split(' ', 2);
+  }
+
+  addTaskToUser() {
+    this.split();
+    const tit = this.signupForm.value.title;
+    const desc = this.signupForm.value.description;
+    const stat = this.data.status;
+    const nam = this.splitted[0];
+    const sur = this.splitted[1];
+    this.taskService.addTaskToUser({title: tit, description: desc, status: stat, name: nam, surname: sur}).subscribe();
   }
 
   editTask(taskData: Task) {
     taskData.status = this.editedTaskStatus;
     this.taskService.patchTask(taskData, this.data.id).subscribe();
+  }
+
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe((res: {userList: User[]}) => {
+      this.users = res.userList;
+    });
   }
 }

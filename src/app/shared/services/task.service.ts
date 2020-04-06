@@ -12,12 +12,20 @@ constructor(private http: HttpClient) { }
     return this.http.post(environment.apiUrl + 'KanbanTask', taskData, { responseType: 'text' });
   }
 
+  addTaskToUser(taskData) {
+    return this.http.post(environment.apiUrl + 'User/AddTaskToUser', taskData, { responseType: 'text' });
+  }
+
   deleteTask(id: number) {
     return this.http.delete(environment.apiUrl + 'KanbanTask?kanbanTaskId=' + id, { responseType: 'text' });
   }
 
   getAllTasks() {
     return this.http.get(environment.apiUrl + 'KanbanTask/AllTasks');
+  }
+
+  allTasksPerUser() {
+    return this.http.get(environment.apiUrl + 'User/AllTasksPerUser');
   }
 
   getSingleTask(id: number) {

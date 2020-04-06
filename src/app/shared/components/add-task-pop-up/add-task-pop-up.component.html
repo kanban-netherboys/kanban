@@ -17,18 +17,15 @@
         rows="10">
       </textarea>
     </mat-form-field>
-    <!-- <br>
-    <mat-form-field appearance="fill">
-      <mat-label>Osoby</mat-label>
-      <mat-select>
-        <mat-option value="option1">Option</mat-option>
-        <mat-option value="option2">Option2</mat-option>
+    <br *ngIf="!editMode">
+    <mat-form-field *ngIf="!editMode" appearance="fill">
+      <mat-label>Przypisz do</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}} {{user.surname}}</mat-option>
       </mat-select>
-    </mat-form-field> -->
-  </form>
-</div>
+    </mat-form-field>
 
-<div fxLayout="row" fxLayoutGap="10px" style="float: right;">
+<div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px;">
 
   <button
     mat-button 
@@ -40,7 +37,7 @@
   <button 
     mat-button 
     mat-dialog-close 
-    (click)="addTask({title: signupForm.value.title, description: signupForm.value.description, status: data.status });" 
+    (click)="addTaskToUser();" 
     *ngIf="!editMode"
     style="background-color: rgb(33, 214, 33); color: white;">
     + Dodaj
@@ -55,4 +52,7 @@
     Edytuj
   </button>
 
+</div>
+
+</form>
 </div>

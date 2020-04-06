@@ -24,7 +24,7 @@ export class TransitionComponent implements OnInit {
   inProgress = [];
   done = [];
 
-  users: User[];
+  users;
 
   constructor(private taskService: TaskService,
               private dialogService: DialogService,
@@ -32,38 +32,56 @@ export class TransitionComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTasks();
-    this.getAllUsers();
+    // this.getAllUsers();
   }
 
   getAllTasks() {
-    this.taskService.getAllTasks().subscribe((res: {kanbanList: Task[]}) => {
-      this.tasks = res.kanbanList;
-      this.backlog = res.kanbanList.filter(task => task.status === 'Backlog');
-      this.next = res.kanbanList.filter(task => task.status === 'Next');
-      this.inProgress = res.kanbanList.filter(task => task.status === 'InProgress');
-      this.done = res.kanbanList.filter(task => task.status === 'Done');
-      console.log(this.tasks);
+    this.taskService.allTasksPerUser().subscribe((res: any) => {
+    //   this.tasks = res.kanbanList;
+    //   this.backlog = res.kanbanList.filter(task => task.status === 'Backlog');
+    //   this.next = res.kanbanList.filter(task => task.status === 'Next');
+    //   this.inProgress = res.kanbanList.filter(task => task.status === 'InProgress');
+    //   this.done = res.kanbanList.filter(task => task.status === 'Done');
+    //   console.log(this.tasks);
+    this.users = res.usersTasksList;
+    console.log(res);
+    // console.log(res);
     });
   }
 
-  getAllUsers() {
-    this.userService.getAllUsers().subscribe((res: {userList: User[]}) => {
-      this.users = res.userList;
-      console.log(this.users);
-    });
-  }
+  // allTasksPerUser() {
+  //   console.log(this.user);
+  //   this.taskService.allTasksPerUser().subscribe((res: any) => {
+  //     console.log(res.usersTasksList);
+  //     res.usersTasksList.filter(el => {
+  //       if (el.user.id === this.user.id) {
+  //         this.backlog = el.kanbanTaskList.filter(task => task.status === 'Backlog');
+  //         this.next = el.kanbanTaskList.filter(task => task.status === 'Next');
+  //         this.inProgress = el.kanbanTaskList.filter(task => task.status === 'InProgress');
+  //         this.done = el.kanbanTaskList.filter(task => task.status === 'Done');
+  //       }
+  //     });
+  //     console.log(this.backlog);
+  //   });
+  // }
+
+  // getAllUsers() {
+  //   this.userService.getAllUsers().subscribe((res: {userList: User[]}) => {
+  //     this.users = res.userList;
+  //   });
+  // }
 
   addUserDialog() {
     const dialogRef = this.dialogService.openDialog(AddUserPopUpComponent);
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllUsers();
+      this.getAllTasks();
     });
   }
 
   addTaskDialog(status: string) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
       data: { status: status },
-      height: '430px',
+      height: '492px',
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -81,21 +99,6 @@ export class TransitionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getAllTasks();
     });
-  }
-
-  drop(event, status: string) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-          transferArrayItem(event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex);
-          const title = event.container.data[event.currentIndex].title;
-          const description = event.container.data[event.currentIndex].description;
-          const id = event.container.data[event.currentIndex].id;
-          this.taskService.patchTask({title, description, status}, id).subscribe();
-    }
   }
 
   delTask(id: number) {
