@@ -1,8 +1,9 @@
 <div class="wrapper">
   <div cdkDropListGroup fxLayout="row" style="padding: 20px;">
     <div class="tasks-tab member-1">
-      {{user?.user.name}} {{user?.user.surname}}
+      {{user?.user.name}}
     </div>
+
     <div class="tasks-tab">
       <div
         cdkDropList
@@ -31,6 +32,7 @@
         [cdkDropListData]="next"
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Next')"
+        [style.border]="next.length === 3 ? '2px solid red' : 'none'"
       >
         <div class="task" style="border-bottom:4px solid #E8577A;" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
@@ -53,6 +55,7 @@
         [cdkDropListData]="inProgress"
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'InProgress')"
+        [style.border]="inProgress.length === 3 ? '2px solid red' : 'none'"
       >
         <div class="task" style="border-bottom:4px solid #FFC400;" *ngFor="let item of inProgress" cdkDrag>
           <div class="navigation-items">

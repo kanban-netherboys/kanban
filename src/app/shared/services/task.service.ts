@@ -36,8 +36,14 @@ constructor(private http: HttpClient) { }
     return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTask?kanbanTaskId=' + id, taskData, { responseType: 'text' });
   }
 
-  patchTaskStatus(taskData: Task, id: number) {
-    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchStatus?kanbanTaskId=' + id, taskData, { responseType: 'text' });
+  patchTaskStatus(status, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchStatus?kanbanTaskId=' + id, status, { responseType: 'text' });
+  }
+
+  patchProgressStatus(status: number, id: number) {
+    return this.http.patch(environment.apiUrl +
+      'KanbanTask/PatchProgressStatus?kanbanTaskId=' + id + '&progressStatus=' + status, {});
   }
 
 }
+
