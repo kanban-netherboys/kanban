@@ -76,7 +76,7 @@ export class CoreOneComponent implements OnInit {
     });
   }
 
-  drop(event, status: string, progStat?: number) {
+  drop(event, status: string, progStat: number) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -87,11 +87,9 @@ export class CoreOneComponent implements OnInit {
           const title = event.container.data[event.currentIndex].title;
           const description = event.container.data[event.currentIndex].description;
           const id = event.container.data[event.currentIndex].id;
-          console.log(event.container.data[event.currentIndex]);
-          this.taskService.patchTaskStatus({status}, id).subscribe();
-          if (status === 'InProgress') {
-            this.taskService.patchProgressStatus(progStat, id).subscribe();
-          }
+          this.taskService.patchTaskStatus({status}, id).subscribe(() => {
+            this.taskService.patchProgressStatus({progressStatus: progStat}, id).subscribe();
+          });
     }
   }
 

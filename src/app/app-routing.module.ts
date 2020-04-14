@@ -7,7 +7,7 @@ import { TransitionComponent } from './layout/core-one/transition/transition.com
 
 
 const routes: Routes = [
-  { path: '', component: TransitionComponent },
+  { path: '', component: CoreOneComponent },
   // {path: '', component: LayoutComponent, children: [
   //   { path: 'core-zero', component: CoreZeroComponent },
   //   { path: 'core-one', component: CoreOneComponent }

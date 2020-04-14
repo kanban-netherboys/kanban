@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="topbar">
   <span class="ikona"> </span>
   <span class="logo1">KANBAN BOARD</span>
-  <span class="logo2">PERSONAL KANBAN</span>
+  <span class="logo2">TEAM KANBAN</span>
 </mat-toolbar>
 
 <!-- <div class="wrapper">
@@ -125,7 +125,7 @@
           <span class="add-task-button" style="color: #41a1f5;" (click)="addTaskDialog('Backlog')">+</span>
         </div>
       </div>
-      <div cdkDropList [cdkDropListData]="backlog" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Backlog')">
+      <div cdkDropList [cdkDropListData]="backlog" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Backlog', 1)">
         <div class="task" style="border-bottom: 4px solid #41a1f5;" *ngFor="let item of backlog" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -154,7 +154,7 @@
           <span class="add-task-button" style="color: #e8577a;" (click)="addTaskDialog('Next')">+</span>
         </div>
       </div>
-      <div cdkDropList [cdkDropListData]="next" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Next')">
+      <div cdkDropList [cdkDropListData]="next" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Next', 2)">
         <div class="task" style="border-bottom: 4px solid #e8577a;" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -271,7 +271,7 @@
           DONE ({{ done.length }})
         </div>
       </div>
-      <div cdkDropList [cdkDropListData]="done" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Done')">
+      <div cdkDropList [cdkDropListData]="done" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'Done', 0)">
         <div class="task" style="border-bottom: 4px solid #45e217;" *ngFor="let item of done" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -286,6 +286,31 @@
         </div>
       </div>
     </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color: #f50606;">list</span>
+          GLITCHED ({{tasks?.length}})
+        </div>
+      </div>
+      <div cdkDropList [cdkDropListData]="inProgress0" class="tasks-tab-content">
+        <div class="task" style="border-bottom: 4px solid #f50606;" *ngFor="let item of inProgress0" cdkDrag>
+          <div class="navigation-items">
+            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
+          </div>
+          <div class="task-title">
+            {{ item.title }}
+          </div>
+          <div class="task-description">
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 

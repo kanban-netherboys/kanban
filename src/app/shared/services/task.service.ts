@@ -40,9 +40,8 @@ constructor(private http: HttpClient) { }
     return this.http.patch(environment.apiUrl + 'KanbanTask/PatchStatus?kanbanTaskId=' + id, status, { responseType: 'text' });
   }
 
-  patchProgressStatus(status: number, id: number) {
-    return this.http.patch(environment.apiUrl +
-      'KanbanTask/PatchProgressStatus?kanbanTaskId=' + id + '&progressStatus=' + status, {});
+  patchProgressStatus(status, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchProgressStatus?kanbanTaskId=' + id, status, {responseType: 'text'});
   }
 
 }
