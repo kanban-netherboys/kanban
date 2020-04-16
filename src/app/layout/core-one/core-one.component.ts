@@ -130,8 +130,6 @@ export class CoreOneComponent implements OnInit {
       }
     });
 
-    console.log(array_elements);
-
     array_elements.sort();
 
     let current = null;
@@ -139,7 +137,7 @@ export class CoreOneComponent implements OnInit {
     for (let i = 0; i < array_elements.length; i++) {
         if (array_elements[i] !== current) {
             if (cnt > 0) {
-                console.log(current + ' comes --> ' + cnt + ' times');
+                // console.log(current + ' comes --> ' + cnt + ' times');
                 if (cnt >= 3) {
                   this.nextLimitExceeded = true;
                 }
@@ -151,7 +149,7 @@ export class CoreOneComponent implements OnInit {
         }
     }
     if (cnt > 0) {
-        console.log(current + ' comes --> ' + cnt + ' timess');
+        // console.log(current + ' comes --> ' + cnt + ' timess');
         if (cnt >= 3) {
           this.nextLimitExceeded = true;
         }
@@ -169,8 +167,6 @@ export class CoreOneComponent implements OnInit {
       }
     });
 
-    console.log(array_elements2);
-
     array_elements2.sort();
 
     let current = null;
@@ -178,7 +174,7 @@ export class CoreOneComponent implements OnInit {
     for (let i = 0; i < array_elements2.length; i++) {
         if (array_elements2[i] !== current) {
             if (cnt > 0) {
-                console.log(current + ' comes --> ' + cnt + ' times');
+                // console.log(current + ' comes --> ' + cnt + ' times');
                 if (cnt >= 6) {
                   this.inProgressLimitExceeded = true;
                 }
@@ -190,7 +186,7 @@ export class CoreOneComponent implements OnInit {
         }
     }
     if (cnt > 0) {
-        console.log(current + ' comes --> ' + cnt + ' timess');
+        // console.log(current + ' comes --> ' + cnt + ' timess');
         if (cnt >= 6) {
           this.inProgressLimitExceeded = true;
         }
