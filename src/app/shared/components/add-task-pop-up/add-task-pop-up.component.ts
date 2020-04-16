@@ -41,6 +41,7 @@ export class AddTaskPopUpComponent implements OnInit {
         this.editedTaskStatus = res.singleTask.status;
         this.signupForm.patchValue({title: res.singleTask.title});
         this.signupForm.patchValue({description: res.singleTask.description});
+        console.log(res);
       });
     }
 
@@ -52,18 +53,23 @@ export class AddTaskPopUpComponent implements OnInit {
   }
 
   addTaskToUser() {
-    this.split();
     const tit = this.signupForm.value.title;
     const desc = this.signupForm.value.description;
     const stat = this.data.status;
-    const nam = this.splitted[0];
-    const sur = this.splitted[1];
-    this.taskService.addTaskToUser({title: tit, description: desc, status: stat, name: nam, surname: sur}).subscribe();
+    if (this.selected !== undefined) {
+      this.split();
+      const nam = this.splitted[0];
+      const sur = this.splitted[1];
+      this.taskService.addTaskToUser({name: nam, surname: sur, title: tit, description: desc, status: stat}).subscribe();
+    } else {
+      this.taskService.addTask({title: tit, description: desc, status: stat}).subscribe();
+    }
   }
 
   editTask(taskData: Task) {
     taskData.status = this.editedTaskStatus;
     this.taskService.patchTask(taskData, this.data.id).subscribe();
+    this.getAllUsers();
   }
 
   getAllUsers() {

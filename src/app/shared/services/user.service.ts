@@ -23,4 +23,8 @@ constructor(private http: HttpClient) { }
     getSingleTask(id: number) {
         return this.http.get(environment.apiUrl + 'User/GetSingleUser?userId=' + id);
     }
+
+    getUsersPerTask() {
+        return this.http.get(environment.apiUrl + 'User/AllUsersPerTask');
+    }
 }

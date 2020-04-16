@@ -1,4 +1,23 @@
-.cdk-drag-preview {
+
+  .add-user {
+    float: left;
+    position: absolute;
+    font-size: 15px;
+    background-color: #484848;
+    color: #C2C2C2;
+    left: 1%;
+    top: 8%;
+  }
+
+  ::ng-deep {
+    .mat-fab .mat-button-wrapper{
+      line-height: 14px !important;
+      padding: 0px !important;
+      padding-top: 10px !important;
+    }
+   }
+
+  .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
@@ -23,10 +42,10 @@
   }
 
   .wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: rgb(247, 247, 247)
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: center;
+    // background-color: rgb(247, 247, 247)
   }
   
   .tasks-tab {
@@ -58,9 +77,52 @@
     padding-top: 10px;
   }
 
+  .help-icon-backlog {
+    display: flex;
+    position: relative;
+    float: left;
+    top: -20px;
+    left: -123px;
+    font-size: 21px;
+  }
+
+  .help-icon-next {
+    display: flex;
+    position: relative;
+    float: left;
+    top: -20px;
+    left: -91px;
+    font-size: 21px;
+  }
+
+  .help-icon-progress {
+    display: flex;
+    position: relative;
+    float: left;
+    top: -20px;
+    left: -152px;
+    font-size: 21px;
+  }
+
+  .help-icon-done {
+    display: flex;
+    position: relative;
+    float: left;
+    top: -20px;
+    left: -93px;
+    font-size: 21px;
+  }
+
+  ::ng-deep {
+    .mat-tooltip {
+      font-size: 13px !important;
+    }
+  
+   }
+
   .tasks-tab-content {
     min-height: 100vh;
-    min-width: 152px;
+    min-width: 130px;
   }
   
   .add-task-button {
@@ -104,9 +166,16 @@
   .task:hover .delete-icon {
       display: block;
   }
+
+  .task-p:hover .edit-icon {
+      display: block;
+  }
+  
+  .task-p:hover .delete-icon {
+      display: block;
+  }
   
   .task {
-    width: 254px;
     height: auto;
     background-color: white;
     border-radius: 5px 5px 0 0;
@@ -127,6 +196,26 @@
   
   .task-description {
     padding-top: 5px;
+  }
+
+  .owner-icon {
+    display: flex;
+    position: relative;
+    float: right;
+    top: -15px;
+    left: 7px;
+    width: 22px;
+    height: 22px;
+    background-color: #f9dabf;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .owner {
+    height: fit-content;
+    margin-top: 4px;
+    margin-right: 1px;
+    color: #311756b5;
   }
 
   .topbar 
@@ -167,7 +256,7 @@
 .limit-warning {
   color: red;
   font-size: 10px;
-  margin-left: 5px;
+  margin-left: -17px;
 }
 
 // ------------------ p (progress) classes -------------------
@@ -183,7 +272,6 @@
   word-wrap: break-word;
   font-size: 12px;
   cursor: pointer;
-  width: 110px;
 }
 
 .tasks-tab-p {

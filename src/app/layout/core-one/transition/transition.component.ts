@@ -37,15 +37,8 @@ export class TransitionComponent implements OnInit {
 
   getAllTasks() {
     this.taskService.allTasksPerUser().subscribe((res: any) => {
-    //   this.tasks = res.kanbanList;
-    //   this.backlog = res.kanbanList.filter(task => task.status === 'Backlog');
-    //   this.next = res.kanbanList.filter(task => task.status === 'Next');
-    //   this.inProgress = res.kanbanList.filter(task => task.status === 'InProgress');
-    //   this.done = res.kanbanList.filter(task => task.status === 'Done');
-    //   console.log(this.tasks);
-    this.users = res.usersTasksList;
-    console.log(res);
-    // console.log(res);
+      this.users = res.usersTasksList;
+      console.log(res);
     });
   }
 
