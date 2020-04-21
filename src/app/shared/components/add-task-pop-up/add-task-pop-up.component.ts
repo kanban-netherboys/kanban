@@ -20,8 +20,10 @@ export class AddTaskPopUpComponent implements OnInit {
   editedTaskStatus: any;
 
   users: User[];
+  rows = [1, 2, 3, 4];
 
   selected;
+  selected2;
   splitted;
 
   constructor(private taskService: TaskService,
@@ -56,13 +58,15 @@ export class AddTaskPopUpComponent implements OnInit {
     const tit = this.signupForm.value.title;
     const desc = this.signupForm.value.description;
     const stat = this.data.status;
+    const selec = this.selected2;
     if (this.selected !== undefined) {
       this.split();
       const nam = this.splitted[0];
       const sur = this.splitted[1];
-      this.taskService.addTaskToUser({name: nam, surname: sur, title: tit, description: desc, status: stat}).subscribe();
+      this.taskService.addTaskToUser({name: nam, surname: sur, title: tit, description: desc, status: stat, priority: selec}).subscribe();
     } else {
-      this.taskService.addTask({title: tit, description: desc, status: stat}).subscribe();
+      // this.taskService.addTask({title: tit, description: desc, status: stat}).subscribe();
+      this.taskService.addTaskWithRow({title: tit, description: desc, status: stat, priority: selec}).subscribe();
     }
   }
 

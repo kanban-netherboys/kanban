@@ -9,6 +9,7 @@ import { CoreZeroModule } from './layout/core-zero/core-zero.module';
 import { CoreOneModule } from './layout/core-one/core-one.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreOneOldModule } from './shared/components/core-one-old/core-one-old.module';
 
 @NgModule({
    declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
       BrowserAnimationsModule,
       SharedModule,
       CoreZeroModule,
-      CoreOneModule
+      CoreOneModule,
+      CoreOneOldModule
    ],
    providers: [],
    bootstrap: [

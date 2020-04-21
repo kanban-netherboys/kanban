@@ -44,5 +44,13 @@ constructor(private http: HttpClient) { }
     return this.http.patch(environment.apiUrl + 'KanbanTask/PatchProgressStatus?kanbanTaskId=' + id, status, {responseType: 'text'});
   }
 
+  addTaskWithRow(task) {
+    return this.http.post(environment.apiUrl + 'KanbanTask/AddKanbanTaskWithPrioritity', task);
+  }
+
+  getAllTasksWithRows() {
+    return this.http.get(environment.apiUrl + 'KanbanTask/AllTasksWithSamePriority');
+  }
+
 }
 

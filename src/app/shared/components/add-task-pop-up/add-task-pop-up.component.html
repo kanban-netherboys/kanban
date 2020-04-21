@@ -1,7 +1,7 @@
 <div class="example-container">
   <form [formGroup]="signupForm">
     <mat-form-field appearance="fill" style="display: block;">
-      <mat-label>Nazwa</mat-label>
+      <mat-label>Title</mat-label>
       <input 
         matInput 
         formControlName="title"
@@ -9,7 +9,7 @@
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill" style="display: block;">
-      <mat-label>Opis</mat-label>
+      <mat-label>Description</mat-label>
       <textarea 
         matInput
         formControlName="description"
@@ -18,12 +18,20 @@
       </textarea>
     </mat-form-field>
     <br *ngIf="!editMode">
-    <mat-form-field *ngIf="!editMode" appearance="fill">
-      <mat-label>Przypisz do</mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="44px">
+      <mat-form-field *ngIf="!editMode" appearance="fill">
+        <mat-label>Assign to</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!editMode" appearance="fill">
+        <mat-label>Insert into</mat-label>
+        <mat-select [(value)]="selected2">
+          <mat-option *ngFor="let row of rows" [value]="row">{{row}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
 <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px;">
 
@@ -31,7 +39,7 @@
     mat-button 
     mat-dialog-close
     style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
-    Anuluj
+    Cancel
   </button>
 
   <button 
@@ -40,7 +48,7 @@
     (click)="addTaskToUser();" 
     *ngIf="!editMode"
     style="background-color: rgb(33, 214, 33); color: white;">
-    + Dodaj
+    + Add
   </button>
 
   <button 
@@ -49,7 +57,7 @@
     (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" 
     *ngIf="editMode"
     style="background-color: rgb(33, 214, 33); color: white;">
-    Edytuj
+    Edit
   </button>
 
 </div>
