@@ -48,51 +48,48 @@ export class UserRow2Component implements OnInit {
   ngOnInit() {
     this.allTasksPerUser();
     // this.getAllTasks();
-
     this.getAllUsers();
   }
 
-  getAllTasks() {
-    this.userService.getUsersPerTask().subscribe((res: any) => {
-      this.tasksWithUsers = [];
-      res.taskWithUserList.forEach(el => {
-        this.tasksWithUsers.push({ ...el.userList[0], ...el.kanbanTask });
-      });
-      // console.log(this.tasksWithUsers);
+  // getAllTasks() {
+  //   this.userService.getUsersPerTask().subscribe((res: any) => {
+  //     this.tasksWithUsers = [];
+  //     res.taskWithUserList.forEach(el => {
+  //       this.tasksWithUsers.push({ ...el.userList[0], ...el.kanbanTask });
+  //     });
+  //     console.log(this.tasksWithUsers);
 
-      this.backlog = this.tasksWithUsers.filter(task => task.status === 'Backlog');
-      this.next = this.tasksWithUsers.filter(task => task.status === 'Next');
-      this.inProgress = this.tasksWithUsers.filter(task => task.status === 'InProgress');
-      this.done = this.tasksWithUsers.filter(task => task.status === 'Done');
+  //     this.backlog = this.tasksWithUsers.filter(task => task.status === 'Backlog');
+  //     this.next = this.tasksWithUsers.filter(task => task.status === 'Next');
+  //     this.inProgress = this.tasksWithUsers.filter(task => task.status === 'InProgress');
+  //     this.done = this.tasksWithUsers.filter(task => task.status === 'Done');
 
-      this.inProgress0 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 0);
-      this.inProgress1 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 1);
-      this.inProgress2 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 2);
-      this.inProgress3 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
-      this.inProgress4 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
-      this.inProgress5 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
-      this.calculateWipNext();
-      this.calculateWipInProgress();
-    });
-  }
+  //     this.inProgress0 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 0);
+  //     this.inProgress1 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 1);
+  //     this.inProgress2 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 2);
+  //     this.inProgress3 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
+  //     this.inProgress4 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
+  //     this.inProgress5 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
+  //     this.calculateWipNext();
+  //     this.calculateWipInProgress();
+  //   });
+  // }
 
   allTasksPerUser() {
     console.log(this.rowAndTasks.kanbanTasksList);
+    const wholeTask = this.rowAndTasks.kanbanTasksList;
 
-    this.rowAndTasks.kanbanTasksList.forEach(el => {
-      if (el.status === 'Backlog') {
-        this.backlog.push(el);
-      }
-      if (el.status === 'Next') {
-        this.next.push(el);
-      }
-      if (el.status === 'InProgress') {
-        this.inProgress.push(el);
-      }
-      if (el.status === 'Done') {
-        this.done.push(el);
-      }
-    });
+    this.backlog = wholeTask.filter(task => task.status === 'Backlog');
+    this.next = wholeTask.filter(task => task.status === 'Next');
+    this.inProgress = wholeTask.filter(task => task.status === 'InProgress');
+    this.done = wholeTask.filter(task => task.status === 'Done');
+
+    this.inProgress0 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 0);
+    this.inProgress1 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 1);
+    this.inProgress2 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 2);
+    this.inProgress3 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
+    this.inProgress4 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
+    this.inProgress5 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
   }
 
   getAllUsers() {

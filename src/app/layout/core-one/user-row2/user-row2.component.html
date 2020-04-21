@@ -22,6 +22,9 @@
           <div class="task-description">
             {{ item.description }}
           </div>
+          <div *ngIf="item.userList[0]?.name " class="owner-icon">
+            <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -45,19 +48,22 @@
           <div class="task-description">
             {{ item.description }}
           </div>
+          <div *ngIf="item.userList[0]?.name " class="owner-icon">
+            <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="tasks-tab-p">
 
-      <div style="display: flex;" fxLayout="row">
+      <div style="display: flex; height: 100%;" fxLayout="row">
 
           <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress1" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 1)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress1" cdkDrag>
               <div class="navigation-items">
-                <span class="edit-icon material-icons">create</span>
-                <span class="delete-icon material-icons">delete</span>
+                <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+                <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
               </div>
               <div class="task-title">
                 {{ item.title }}
@@ -65,8 +71,8 @@
               <div class="task-description">
                 {{ item.description }}
               </div>
-              <div *ngIf="item.name" class="owner-icon">
-                <div class="owner">{{item.name | uppercase | slice:0:2}}</div>
+              <div *ngIf="item.userList[0]?.name " class="owner-icon">
+                <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
               </div>
 
             </div>
@@ -75,8 +81,8 @@
           <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress2" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 2)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress2" cdkDrag>
               <div class="navigation-items">
-                <span class="edit-icon material-icons">create</span>
-                <span class="delete-icon material-icons">delete</span>
+                <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+                <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
               </div>
               <div class="task-title">
                 {{ item.title }}
@@ -84,8 +90,8 @@
               <div class="task-description">
                 {{ item.description }}
               </div>
-              <div *ngIf="item.name" class="owner-icon">
-                <div class="owner">{{item.name | uppercase | slice:0:2}}</div>
+              <div *ngIf="item.userList[0]?.name " class="owner-icon">
+                <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
               </div>
 
             </div>
@@ -94,8 +100,8 @@
           <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress3" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 3)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress3" cdkDrag>
               <div class="navigation-items">
-                <span class="edit-icon material-icons">create</span>
-                <span class="delete-icon material-icons">delete</span>
+                <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+                <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
               </div>
               <div class="task-title">
                 {{ item.title }}
@@ -103,8 +109,8 @@
               <div class="task-description">
                 {{ item.description }}
               </div>
-              <div *ngIf="item.name" class="owner-icon">
-                <div class="owner">{{item.name | uppercase | slice:0:2}}</div>
+              <div *ngIf="item.userList[0]?.name " class="owner-icon">
+                <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
               </div>
               
             </div>
@@ -113,8 +119,8 @@
           <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress4" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 4)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress4" cdkDrag>
               <div class="navigation-items">
-                <span class="edit-icon material-icons">create</span>
-                <span class="delete-icon material-icons">delete</span>
+                <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+                <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
               </div>
               <div class="task-title">
                 {{ item.title }}
@@ -122,8 +128,8 @@
               <div class="task-description">
                 {{ item.description }}
               </div>
-              <div *ngIf="item.name" class="owner-icon">
-                <div class="owner">{{item.name | uppercase | slice:0:2}}</div>
+              <div *ngIf="item.userList[0]?.name " class="owner-icon">
+                <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
               </div>
 
             </div>
@@ -132,8 +138,8 @@
           <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress5" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 5)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress5" cdkDrag>
               <div class="navigation-items">
-                <span class="edit-icon material-icons">create</span>
-                <span class="delete-icon material-icons">delete</span>
+                <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
+                <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
               </div>
               <div class="task-title">
                 {{ item.title }}
@@ -141,8 +147,8 @@
               <div class="task-description">
                 {{ item.description }}
               </div>
-              <div *ngIf="item.name" class="owner-icon">
-                <div class="owner">{{item.name | uppercase | slice:0:2}}</div>
+              <div *ngIf="item.userList[0]?.name " class="owner-icon">
+                <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
               </div>
 
             </div>
@@ -151,29 +157,6 @@
       </div>
       
     </div>
-
-    <!-- <div class="tasks-tab-p">
-      <div
-        cdkDropList
-        [cdkDropListData]="inProgress"
-        class="tasks-tab"
-        (cdkDropListDropped)="drop($event, 'InProgress')"
-        [style.border]="inProgress.length === 3 ? '2px solid red' : 'none'"
-      >
-        <div class="task" style="border-bottom:4px solid #FFC400;" *ngFor="let item of inProgress" cdkDrag>
-          <div class="navigation-items">
-            <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
-            <span class="delete-icon material-icons" (click)="delTask(item.id)">delete</span>
-          </div>
-          <div class="task-title">
-            {{ item.title }}
-          </div>
-          <div class="task-description">
-            {{ item.description }}
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <div class="tasks-tab">
       <div
@@ -192,6 +175,9 @@
           </div>
           <div class="task-description">
             {{ item.description }}
+          </div>
+          <div *ngIf="item.userList[0]?.name " class="owner-icon">
+            <div class="owner">{{item.userList[0].name | uppercase | slice:0:2}}</div>
           </div>
         </div>
       </div>

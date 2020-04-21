@@ -40,6 +40,18 @@
     font-weight: 500;
   }
 
+  .tasks-tab-p {
+    width: 795px;
+    min-height: 50vh;
+    background: #E5E5E5;
+    border-radius: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #311756;
+    font-weight: 500;
+    margin-right: 25px;
+    min-height: 235px;
+  }
+
   .tasks-tab-row {
     width: 50px;
     margin-right: 25px;
@@ -56,16 +68,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-  }
-
-  .tasks-tab-p {
-    width: 795px;
-    margin-right: 25px;
-    background: #E5E5E5;
-    border-radius: 14px;
-    font-family: 'Roboto', sans-serif;
-    color: #311756;
-    font-weight: 500;
   }
   
   .tasks-tab-header {
@@ -129,8 +131,29 @@
   .task:hover .delete-icon {
       display: block;
   }
+
+  .task-p:hover .edit-icon {
+    display: block;
+}
+
+  .task-p:hover .delete-icon {
+      display: block;
+  }
   
   .task {
+    height: auto;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 4px solid #FFC400;  /*  this color should be changed with js */
+    box-shadow: 0px 1px 3px #0000001A;
+    padding: 10px;
+    margin: 11px;
+    word-wrap: break-word;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .task-p {
     height: auto;
     background-color: white;
     border-radius: 5px 5px 0 0;
@@ -151,6 +174,26 @@
   
   .task-description {
     padding-top: 5px;
+  }
+
+  .owner-icon {
+    display: flex;
+    position: relative;
+    float: right;
+    top: -15px;
+    left: 7px;
+    width: 22px;
+    height: 22px;
+    background-color: #f9dabf;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .owner {
+    height: fit-content;
+    margin-top: 4px;
+    margin-right: 1px;
+    color: #311756b5;
   }
 
   .topbar 
@@ -196,27 +239,6 @@
 
 .cdk-drop-list {
   height: 100%;
+  background: border-box;
 }
 
-.task-p {
-  height: auto;
-  background-color: white;
-  border-radius: 5px 5px 0 0;
-  border-bottom: 4px solid #FFC400;  /*  this color should be changed with js */
-  box-shadow: 0px 1px 3px #0000001A;
-  padding: 10px;
-  margin: 11px;
-  word-wrap: break-word;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.tasks-tab-p {
-  min-height: 50vh;
-  background: #E5E5E5;
-  border-radius: 14px;
-  font-family: 'Roboto', sans-serif;
-  color: #311756;
-  font-weight: 500;
-  margin-right: 25px;
-}

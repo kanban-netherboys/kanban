@@ -45,7 +45,7 @@ constructor(private http: HttpClient) { }
   }
 
   addTaskWithRow(task) {
-    return this.http.post(environment.apiUrl + 'KanbanTask/AddKanbanTaskWithPrioritity', task);
+    return this.http.post(environment.apiUrl + 'KanbanTask/AddKanbanTaskWithPriority', task, { responseType: 'text' });
   }
 
   getAllTasksWithRows() {

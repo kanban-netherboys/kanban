@@ -32,16 +32,16 @@ export class CoreOneComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    this.getAllTasks();
+    // this.getAllTasks();
     this.getAllTasksWithRows();
   }
 
-  getAllTasks() {
-    this.taskService.allTasksPerUser().subscribe((res: any) => {
-      this.usersAndTasks = res.usersTasksList;
-      console.log(res);
-    });
-  }
+  // getAllTasks() {
+  //   this.taskService.allTasksPerUser().subscribe((res: any) => {
+  //     this.usersAndTasks = res.usersTasksList;
+  //     console.log(res);
+  //   });
+  // }
 
   getAllTasksWithRows() {
     this.taskService.getAllTasksWithRows().subscribe((res: any) => {
