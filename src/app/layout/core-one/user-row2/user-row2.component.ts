@@ -47,33 +47,8 @@ export class UserRow2Component implements OnInit {
 
   ngOnInit() {
     this.allTasksPerUser();
-    // this.getAllTasks();
     this.getAllUsers();
   }
-
-  // getAllTasks() {
-  //   this.userService.getUsersPerTask().subscribe((res: any) => {
-  //     this.tasksWithUsers = [];
-  //     res.taskWithUserList.forEach(el => {
-  //       this.tasksWithUsers.push({ ...el.userList[0], ...el.kanbanTask });
-  //     });
-  //     console.log(this.tasksWithUsers);
-
-  //     this.backlog = this.tasksWithUsers.filter(task => task.status === 'Backlog');
-  //     this.next = this.tasksWithUsers.filter(task => task.status === 'Next');
-  //     this.inProgress = this.tasksWithUsers.filter(task => task.status === 'InProgress');
-  //     this.done = this.tasksWithUsers.filter(task => task.status === 'Done');
-
-  //     this.inProgress0 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 0);
-  //     this.inProgress1 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 1);
-  //     this.inProgress2 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 2);
-  //     this.inProgress3 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
-  //     this.inProgress4 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
-  //     this.inProgress5 = this.tasksWithUsers.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
-  //     this.calculateWipNext();
-  //     this.calculateWipInProgress();
-  //   });
-  // }
 
   allTasksPerUser() {
     console.log(this.rowAndTasks.kanbanTasksList);
@@ -90,6 +65,8 @@ export class UserRow2Component implements OnInit {
     this.inProgress3 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
     this.inProgress4 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
     this.inProgress5 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
+    this.calculateWipNext();
+    this.calculateWipInProgress();
   }
 
   getAllUsers() {
@@ -101,12 +78,12 @@ export class UserRow2Component implements OnInit {
   editTaskDialog(id: number) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
       data: { id: id},
-      height: '430px',
+      height: '480px',
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // this.allTasksPerUser();
+      this.allTasksPerUser();
     });
   }
 
@@ -131,7 +108,6 @@ export class UserRow2Component implements OnInit {
   }
 
   delTask(id: number) {
-    // this.taskService.deleteTask(id).subscribe(() => this.allTasksPerUser());
     this.del.emit(id);
   }
 
@@ -140,12 +116,13 @@ export class UserRow2Component implements OnInit {
     const array_elements = [];
 
     this.next.forEach(el => {
-      if (el.name !== undefined) {
-        array_elements.push(el.name);
+      if (el.userList.length !== 0) {
+        array_elements.push(el.userList[0].name);
       }
     });
 
     array_elements.sort();
+    
 
     let current = null;
     let  cnt = 0;
@@ -177,8 +154,8 @@ export class UserRow2Component implements OnInit {
     const array_elements2 = [];
     const arr = [...this.inProgress1, ...this.inProgress2, ...this.inProgress3, ...this.inProgress4, ...this.inProgress5];
     arr.forEach(el => {
-      if (el.name !== undefined) {
-        array_elements2.push(el.name);
+      if (el.userList.length !== 0) {
+        array_elements2.push(el.userList[0].name);
       }
     });
 

@@ -35,7 +35,7 @@
         [cdkDropListData]="next"
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Next')"
-        [style.border]="next.length === 20 ? '2px solid red' : 'none'"
+        [style.border]="nextLimitExceeded ? '2px solid red' : 'none'"
       >
         <div class="task" style="border-bottom:4px solid #E8577A;" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
@@ -57,9 +57,15 @@
 
     <div class="tasks-tab-p">
 
-      <div style="display: flex; height: 100%;" fxLayout="row">
+      <div style="display: flex; height: 100%;" fxLayout="row" [style.border]="inProgressLimitExceeded ? '2px solid red' : 'none'">
 
-          <div fxFlex="25" cdkDropList [cdkDropListData]="inProgress1" class="tasks-tab-content" (cdkDropListDropped)="drop($event, 'InProgress', 1)">
+          <div 
+            fxFlex="25" 
+            cdkDropList 
+            [cdkDropListData]="inProgress1" 
+            class="tasks-tab-content" 
+            (cdkDropListDropped)="drop($event, 'InProgress', 1)"
+            >
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress1" cdkDrag>
               <div class="navigation-items">
                 <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>

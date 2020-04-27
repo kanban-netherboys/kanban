@@ -32,16 +32,8 @@ export class CoreOneComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    // this.getAllTasks();
     this.getAllTasksWithRows();
   }
-
-  // getAllTasks() {
-  //   this.taskService.allTasksPerUser().subscribe((res: any) => {
-  //     this.usersAndTasks = res.usersTasksList;
-  //     console.log(res);
-  //   });
-  // }
 
   getAllTasksWithRows() {
     this.taskService.getAllTasksWithRows().subscribe((res: any) => {
@@ -53,7 +45,6 @@ export class CoreOneComponent implements OnInit {
   addUserDialog() {
     const dialogRef = this.dialogService.openDialog(AddUserPopUpComponent);
     dialogRef.afterClosed().subscribe(() => {
-      // this.getAllTasks();
       this.getAllTasksWithRows();
     });
   }
@@ -65,27 +56,12 @@ export class CoreOneComponent implements OnInit {
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      // this.getAllTasks();
-      this.getAllTasksWithRows();
-    });
-  }
-
-  editTaskDialog(id: number) {
-    const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { id: id},
-      height: '430px',
-      width: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // this.getAllTasks();
       this.getAllTasksWithRows();
     });
   }
 
   delTask(id: number) {
     this.taskService.deleteTask(id).subscribe(() => {
-      // this.getAllTasks();
       this.getAllTasksWithRows();
     });
   }
