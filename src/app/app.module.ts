@@ -10,6 +10,7 @@ import { CoreOneModule } from './layout/core-one/core-one.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreOneOldModule } from './shared/components/core-one-old/core-one-old.module';
+import { CoreTwoModule } from './layout/core-two/core-two.module';
 
 @NgModule({
    declarations: [
@@ -24,7 +25,8 @@ import { CoreOneOldModule } from './shared/components/core-one-old/core-one-old.
       SharedModule,
       CoreZeroModule,
       CoreOneModule,
-      CoreOneOldModule
+      CoreOneOldModule,
+      CoreTwoModule
    ],
    providers: [],
    bootstrap: [

@@ -22,9 +22,11 @@ export class AddTaskPopUpComponent implements OnInit {
   users: User[];
   rows = [1, 2, 3, 4];
 
-  selected;
-  selected2;
-  splitted;
+  selectedUser1;
+  selectedUser2;
+  selectedUser3;
+  selectedRow;
+  none = 'None';
 
   constructor(private taskService: TaskService,
               private userService: UserService,
@@ -40,40 +42,73 @@ export class AddTaskPopUpComponent implements OnInit {
     if (this.data.id !== undefined) {
       this.editMode = true;
       this.taskService.getSingleTask(this.data.id).subscribe((res: any) => {
-        this.editedTaskStatus = res.singleTask.status;
-        this.signupForm.patchValue({title: res.singleTask.title});
-        this.signupForm.patchValue({description: res.singleTask.description});
-        console.log(res);
+        this.editedTaskStatus = res.kanbanTask.status;
+        this.signupForm.patchValue({title: res.kanbanTask.title});
+        this.signupForm.patchValue({description: res.kanbanTask.description});
+        if (res.userList[0] !== undefined) {
+          this.selectedUser1 = res.userList[0].name + ' ' + res.userList[0].surname;
+        }
+        if (res.userList[1] !== undefined) {
+          this.selectedUser2 = res.userList[1].name + ' ' + res.userList[1].surname;
+        }
+        if (res.userList[2] !== undefined) {
+          this.selectedUser3 = res.userList[2].name + ' ' + res.userList[2].surname;
+        }
+        // console.log(res);
+      });
+      this.taskService.getAllTasksWithRows().subscribe((res: any) => {
+        console.log(res.tasksList);
       });
     }
 
     this.getAllUsers();
   }
 
-  split() {
-    this.splitted = this.selected.split(' ', 2);
-  }
-
-  addTaskToUser() {
-    const tit = this.signupForm.value.title;
-    const desc = this.signupForm.value.description;
-    const stat = this.data.status;
-    const selec = this.selected2;
-    if (this.selected !== undefined) {
-      this.split();
-      const nam = this.splitted[0];
-      const sur = this.splitted[1];
-      this.taskService.addTaskToUser({name: nam, surname: sur, title: tit, description: desc, status: stat, priority: selec}).subscribe();
-    } else {
-      // this.taskService.addTask({title: tit, description: desc, status: stat}).subscribe();
-      this.taskService.addTaskWithRow({title: tit, description: desc, status: stat, priority: selec}).subscribe();
+  split(selecUser) {
+    if (selecUser !== undefined) {
+      return selecUser.split(' ', 2);
     }
   }
 
-  editTask(taskData: Task) {
-    taskData.status = this.editedTaskStatus;
-    this.taskService.patchTask(taskData, this.data.id).subscribe();
-    this.getAllUsers();
+  addTask() {
+    const tit = this.signupForm.value.title;
+    const desc = this.signupForm.value.description;
+    const stat = this.data.status;
+    const selec = this.selectedRow;
+    const selectedUsers = [this.selectedUser1, this.selectedUser2, this.selectedUser3];
+    const objs = [];
+    for (const selectedUser of selectedUsers) {
+      const splitted = this.split(selectedUser);
+      if (splitted !== undefined && splitted.length > 1) {
+        objs.push({name: splitted[0], surname: splitted[1]});
+      }
+    }
+    console.log(objs);
+    this.taskService
+    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe();
+  }
+
+  editTask() {
+    const tit = this.signupForm.value.title;
+    const desc = this.signupForm.value.description;
+    const stat = this.editedTaskStatus;
+    const id = this.data.id;
+    // const stat = this.data.status;
+    const selec = 1;
+    const selectedUsers = [this.selectedUser1, this.selectedUser2, this.selectedUser3];
+    // this.taskService
+    // .patchTask({title: tit, description: desc, status: stat }, id).subscribe();
+    const objs = [];
+    for (const selectedUser of selectedUsers) {
+      const splitted = this.split(selectedUser);
+      if (splitted !== undefined && splitted.length > 1) {
+        objs.push({name: splitted[0], surname: splitted[1]});
+      }
+    }
+    this.taskService
+    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe(res => {
+      this.taskService.deleteTask(id).subscribe();
+    });
   }
 
   getAllUsers() {

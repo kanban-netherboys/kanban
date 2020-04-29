@@ -1,20 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from 'src/app/shared/models/task.model';
+import { User } from 'src/app/shared/models/user.model';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up/add-task-pop-up.component';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { AddUserPopUpComponent } from 'src/app/shared/components/add-user-pop-up/add-user-pop-up.component';
-import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/shared/models/user.model';
-
 
 @Component({
-  selector: 'app-user-row2',
-  templateUrl: './user-row2.component.html',
-  styleUrls: ['./user-row2.component.scss']
+  selector: 'app-two-user-row',
+  templateUrl: './two-user-row.component.html',
+  styleUrls: ['./two-user-row.component.scss']
 })
-export class UserRow2Component implements OnInit {
+export class TwoUserRowComponent implements OnInit {
 
   @Input() rowAndTasks;
   @Output() del = new EventEmitter();
@@ -51,7 +49,7 @@ export class UserRow2Component implements OnInit {
   }
 
   allTasksPerUser() {
-    console.log(this.rowAndTasks.kanbanTasksList);
+    // console.log(this.rowAndTasks.kanbanTasksList);
     const wholeTask = this.rowAndTasks.kanbanTasksList;
 
     this.backlog = wholeTask.filter(task => task.status === 'Backlog');
@@ -77,8 +75,8 @@ export class UserRow2Component implements OnInit {
 
   editTaskDialog(id: number) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { id: id},
-      height: '550px',
+      data: { id: id },
+      height: '635px',
       width: '500px',
     });
 

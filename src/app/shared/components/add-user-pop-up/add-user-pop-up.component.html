@@ -7,7 +7,7 @@
         formControlName="name"
         type="text">
     </mat-form-field>
-    <br>
+
     <mat-form-field appearance="fill" style="display: block;">
       <mat-label>Surname</mat-label>
       <input
@@ -24,7 +24,7 @@
     mat-button 
     mat-dialog-close
     style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
-    Anuluj
+    Cancel
   </button>
 
   <button 
@@ -33,7 +33,7 @@
     (click)="addUser({name: signupForm.value.name, surname: signupForm.value.surname});" 
     *ngIf="!editMode"
     style="background-color: rgb(33, 214, 33); color: white;">
-    + Dodaj
+    + Add
   </button>
 
   <!-- <button 

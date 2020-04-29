@@ -1,5 +1,6 @@
 <div class="example-container">
   <form [formGroup]="signupForm">
+
     <mat-form-field appearance="fill" style="display: block;">
       <mat-label>Title</mat-label>
       <input 
@@ -7,7 +8,9 @@
         formControlName="title"
         type="text">
     </mat-form-field>
+
     <br>
+
     <mat-form-field appearance="fill" style="display: block;">
       <mat-label>Description</mat-label>
       <textarea 
@@ -17,50 +20,100 @@
         rows="10">
       </textarea>
     </mat-form-field>
-    <br *ngIf="!editMode">
-    <div fxLayout="row" fxLayoutGap="44px">
-      <mat-form-field *ngIf="!editMode" appearance="fill">
-        <mat-label>Assign to</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field *ngIf="!editMode" appearance="fill">
-        <mat-label>Insert into</mat-label>
-        <mat-select [(value)]="selected2">
-          <mat-option *ngFor="let row of rows" [value]="row">{{row}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="28px" *ngIf="!editMode">
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser1">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser2">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser3">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Insert into</mat-label>
+          <mat-select [(value)]="selectedRow">
+            <mat-option *ngFor="let row of rows" [value]="row">{{row}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px; justify-content: flex-end;" *ngIf="!editMode">
+          <button
+            mat-button 
+            mat-dialog-close
+            style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
+            Cancel
+          </button>
+          <button 
+            mat-button 
+            mat-dialog-close 
+            (click)="addTask();" 
+            style="background-color: rgb(33, 214, 33); color: white;">
+            + Add
+          </button>
+        </div>
+      </div>
     </div>
 
-<div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px;">
+    <div fxLayout="row" fxLayoutGap="66px" *ngIf="editMode">
+      <div fxFlex="50" fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser1">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser2">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Assign to</mat-label>
+          <mat-select [(value)]="selectedUser3">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px;">
+        <div style="float: right; margin-top: 10px;">
+          <button
+            mat-button 
+            mat-dialog-close
+            style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33); margin-right: 10px;">
+            Cancel
+          </button>
+          <button 
+            mat-button 
+            mat-dialog-close 
+            (click)="editTask();" 
+            *ngIf="editMode"
+            style="background-color: rgb(33, 214, 33); color: white;">
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
 
-  <button
-    mat-button 
-    mat-dialog-close
-    style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
-    Cancel
-  </button>
-
-  <button 
-    mat-button 
-    mat-dialog-close 
-    (click)="addTaskToUser();" 
-    *ngIf="!editMode"
-    style="background-color: rgb(33, 214, 33); color: white;">
-    + Add
-  </button>
-
-  <button 
-    mat-button 
-    mat-dialog-close 
-    (click)="editTask({title: signupForm.value.title, description: signupForm.value.description, status: null });" 
-    *ngIf="editMode"
-    style="background-color: rgb(33, 214, 33); color: white;">
-    Edit
-  </button>
-
-</div>
-
-</form>
+  </form>
 </div>
