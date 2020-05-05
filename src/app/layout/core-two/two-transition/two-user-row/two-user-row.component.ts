@@ -16,6 +16,7 @@ export class TwoUserRowComponent implements OnInit {
 
   @Input() rowAndTasks;
   @Output() del = new EventEmitter();
+  @Output() edit = new EventEmitter();
 
   // WIPLimit = 3;
   limitWarning = 'Exceeded!';
@@ -76,12 +77,13 @@ export class TwoUserRowComponent implements OnInit {
   editTaskDialog(id: number) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
       data: { id: id },
-      height: '635px',
+      height: '685px',
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
       this.allTasksPerUser();
+      this.edit.emit();
     });
   }
 

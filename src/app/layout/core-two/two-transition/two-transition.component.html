@@ -67,4 +67,4 @@
   </div>
 </div>
 
-<app-two-user-row *ngFor="let rowAndTasks of rowsAndTasks" [rowAndTasks]="rowAndTasks" (del)="delTask($event)"></app-two-user-row>
+<app-two-user-row *ngFor="let rowAndTasks of rowsAndTasks" [rowAndTasks]="rowAndTasks" (del)="delTask($event)" (edit)="reloadTasks()"></app-two-user-row>

@@ -50,7 +50,7 @@ export class TwoTransitionComponent implements OnInit {
   addTaskDialog(status: string) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
       data: { status: status },
-      height: '635px',
+      height: '685px',
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -62,6 +62,10 @@ export class TwoTransitionComponent implements OnInit {
     this.taskService.deleteTask(id).subscribe(() => {
       this.getAllTasksWithRows();
     });
+  }
+
+  reloadTasks() {
+    this.getAllTasksWithRows();
   }
 
 }

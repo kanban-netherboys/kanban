@@ -9,8 +9,7 @@
         cdkDropList
         [cdkDropListData]="backlog"
         class="tasks-tab"
-        (cdkDropListDropped)="drop($event, 'Backlog')"
-      >
+        (cdkDropListDropped)="drop($event, 'Backlog')">
         <div class="task" style="border-bottom:4px solid #41A1F5;" *ngFor="let item of backlog" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -37,8 +36,7 @@
         [cdkDropListData]="next"
         class="tasks-tab"
         (cdkDropListDropped)="drop($event, 'Next')"
-        [style.border]="nextLimitExceeded ? '2px solid red' : 'none'"
-      >
+        [style.border]="nextLimitExceeded ? '2px solid red' : 'none'">
         <div class="task" style="border-bottom:4px solid #E8577A;" *ngFor="let item of next" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -68,8 +66,7 @@
             cdkDropList 
             [cdkDropListData]="inProgress1" 
             class="tasks-tab-content" 
-            (cdkDropListDropped)="drop($event, 'InProgress', 1)"
-            >
+            (cdkDropListDropped)="drop($event, 'InProgress', 1)">
             <div class="task-p" style="border-bottom: 4px solid #ffc400;" *ngFor="let item of inProgress1" cdkDrag>
               <div class="navigation-items">
                 <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>
@@ -178,8 +175,7 @@
         cdkDropList
         [cdkDropListData]="done"
         class="tasks-tab"
-        (cdkDropListDropped)="drop($event, 'Done')"
-      >
+        (cdkDropListDropped)="drop($event, 'Done')">
         <div class="task" style="border-bottom:4px solid #45E217;" *ngFor="let item of done" cdkDrag>
           <div class="navigation-items">
             <span class="edit-icon material-icons" (click)="editTaskDialog(item.id)">create</span>

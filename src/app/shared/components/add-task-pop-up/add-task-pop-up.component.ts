@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { ThrowStmt } from '@angular/compiler';
@@ -26,11 +26,13 @@ export class AddTaskPopUpComponent implements OnInit {
   selectedUser2;
   selectedUser3;
   selectedRow;
+  selectedColor;
   none = 'None';
 
   constructor(private taskService: TaskService,
               private userService: UserService,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private dialogRef: MatDialogRef<AddTaskPopUpComponent>) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -54,11 +56,8 @@ export class AddTaskPopUpComponent implements OnInit {
         if (res.userList[2] !== undefined) {
           this.selectedUser3 = res.userList[2].name + ' ' + res.userList[2].surname;
         }
-        // console.log(res);
       });
-      this.taskService.getAllTasksWithRows().subscribe((res: any) => {
-        console.log(res.tasksList);
-      });
+      this.taskService.getAllTasksWithRows().subscribe();
     }
 
     this.getAllUsers();
@@ -83,7 +82,6 @@ export class AddTaskPopUpComponent implements OnInit {
         objs.push({name: splitted[0], surname: splitted[1]});
       }
     }
-    console.log(objs);
     this.taskService
     .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe();
   }
@@ -106,9 +104,9 @@ export class AddTaskPopUpComponent implements OnInit {
       }
     }
     this.taskService
-    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe(res => {
-      this.taskService.deleteTask(id).subscribe();
-    });
+    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe();
+    this.taskService.deleteTask(id).subscribe();
+    this.dialogRef.close();
   }
 
   getAllUsers() {

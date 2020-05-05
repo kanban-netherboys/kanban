@@ -52,26 +52,27 @@
             <mat-option *ngFor="let row of rows" [value]="row">{{row}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px; justify-content: flex-end;" *ngIf="!editMode">
-          <button
-            mat-button 
-            mat-dialog-close
-            style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
-            Cancel
-          </button>
-          <button 
-            mat-button 
-            mat-dialog-close 
-            (click)="addTask();" 
-            style="background-color: rgb(33, 214, 33); color: white;">
-            + Add
-          </button>
-        </div>
+        <mat-checkbox color="primary">Blocked</mat-checkbox>
       </div>
     </div>
+    <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px; justify-content: flex-end;" *ngIf="!editMode">
+      <button
+        mat-button 
+        mat-dialog-close
+        style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33);">
+        Cancel
+      </button>
+      <button 
+        mat-button 
+        mat-dialog-close 
+        (click)="addTask();" 
+        style="background-color: rgb(33, 214, 33); color: white;">
+        + Add
+      </button>
+    </div>
 
-    <div fxLayout="row" fxLayoutGap="66px" *ngIf="editMode">
-      <div fxFlex="50" fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="28px" *ngIf="editMode">
+      <div fxLayout="column">
         <mat-form-field appearance="fill">
           <mat-label>Assign to</mat-label>
           <mat-select [(value)]="selectedUser1">
@@ -95,24 +96,32 @@
         </mat-form-field>
       </div>
       
-      <div fxLayout="row" fxLayoutGap="10px" style="float: right; margin-top: 10px;">
-        <div style="float: right; margin-top: 10px;">
-          <button
-            mat-button 
-            mat-dialog-close
-            style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33); margin-right: 10px;">
-            Cancel
-          </button>
-          <button 
-            mat-button 
-            mat-dialog-close 
-            (click)="editTask();" 
-            *ngIf="editMode"
-            style="background-color: rgb(33, 214, 33); color: white;">
-            Edit
-          </button>
-        </div>
+      <div fxLayout="column">
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Color</mat-label>
+          <mat-select [(value)]="selectedColor">
+            <mat-option [value]="none">None</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name + ' ' + user.surname">{{user.name}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-checkbox color="primary">Blocked</mat-checkbox>
       </div>
+    </div>
+
+    <div style="float: right; margin-top: 10px;" *ngIf="editMode">
+      <button
+        mat-button 
+        mat-dialog-close
+        style="border: 1px solid rgb(33, 214, 33); color:rgb(33, 214, 33); margin-right: 10px;">
+        Cancel
+      </button>
+      <button 
+        mat-button 
+        (click)="editTask();" 
+        *ngIf="editMode"
+        style="background-color: rgb(33, 214, 33); color: white;">
+        Edit
+      </button>
     </div>
 
   </form>
