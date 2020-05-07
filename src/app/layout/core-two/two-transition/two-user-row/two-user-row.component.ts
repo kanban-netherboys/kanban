@@ -6,6 +6,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up/add-task-pop-up.component';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-two-user-row',
@@ -47,7 +48,8 @@ export class TwoUserRowComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               private dialogService: DialogService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.allTasksPerUser();
@@ -107,6 +109,12 @@ export class TwoUserRowComponent implements OnInit {
             this.taskService.patchProgressStatus({progressStatus: progStat}, id).subscribe(() => {
               this.calculateWipNext();
               this.calculateWipInProgress();
+              if (this.whoExceeded.length > 0 || this.whoExceeded2.length > 0) {
+                this._snackBar.open('Limit has been exceeded!', null, {
+                  duration: 3000,
+                  panelClass: ['snackbar']
+                });
+              }
             });
           });
     }
