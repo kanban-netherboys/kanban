@@ -20,7 +20,7 @@ export class TwoUserRowComponent implements OnInit {
 
   // WIPLimit = 3;
   limitWarning = 'Exceeded!';
-  nextLimitExceeded = false;
+
   inProgressLimitExceeded = false;
 
   tasks: Task[];
@@ -40,6 +40,16 @@ export class TwoUserRowComponent implements OnInit {
 
   users: User[];
 
+  colors = {
+    yellow: '#ffff8e',
+    green: '#97f197',
+    red: '#ff7272',
+    blue: '#8787f5'
+  };
+
+  whoExceeded = [];
+  whoExceeded2 = [];
+
   constructor(private taskService: TaskService,
               private dialogService: DialogService,
               private userService: UserService) { }
@@ -50,7 +60,6 @@ export class TwoUserRowComponent implements OnInit {
   }
 
   allTasksPerUser() {
-    // console.log(this.rowAndTasks.kanbanTasksList);
     const wholeTask = this.rowAndTasks.kanbanTasksList;
 
     this.backlog = wholeTask.filter(task => task.status === 'Backlog');
@@ -64,6 +73,7 @@ export class TwoUserRowComponent implements OnInit {
     this.inProgress3 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 3);
     this.inProgress4 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 4);
     this.inProgress5 = wholeTask.filter(task => task.status === 'InProgress' && task.progressStatus === 5);
+
     this.calculateWipNext();
     this.calculateWipInProgress();
   }
@@ -98,6 +108,9 @@ export class TwoUserRowComponent implements OnInit {
           const title = event.container.data[event.currentIndex].title;
           const description = event.container.data[event.currentIndex].description;
           const id = event.container.data[event.currentIndex].id;
+          const users = event.container.data[event.currentIndex].userList;
+          console.log(users);
+          // this.checkForVip(event.container.data, users);
           this.taskService.patchTaskStatus({status: status}, id).subscribe(() => {
             this.taskService.patchProgressStatus({progressStatus: progStat}, id).subscribe(() => {
               this.calculateWipNext();
@@ -111,19 +124,100 @@ export class TwoUserRowComponent implements OnInit {
     this.del.emit(id);
   }
 
+  setBackgroundColor(color) {
+    if (color === 'yellow') {
+      return '#FFF7DE';
+    } else if (color === 'green') {
+      return '#DBF5D4';
+    } else if (color === 'red') {
+      return '#FFE5EB';
+    } else if (color === 'blue') {
+      return '#DBEEFF';
+    } else {
+      return '#ffffff';
+    }
+  }
+
+  setBorderBottomColor(color) {
+    if (color === 'yellow') {
+      return '4px solid #ffe488';
+    } else if (color === 'green') {
+      return '4px solid #a1f18a';
+    } else if (color === 'red') {
+      return '4px solid #ffa2b9';
+    } else if (color === 'blue') {
+      return '4px solid #8ecaff';
+    } else {
+      return '4px solid #dedede';
+    }
+  }
+
+  setOwnerIconColor(color) {
+    if (color === 'yellow') {
+      return '#ffe488';
+    } else if (color === 'green') {
+      return '#a1f18a';
+    } else if (color === 'red') {
+      return '#ffa2b9';
+    } else if (color === 'blue') {
+      return '#8ecaff';
+    } else {
+      return '#dedede';
+    }
+  }
+
+  // checkForVip(data, currentUsers) {
+  //   const users = [];
+  //   data.forEach(el => {
+  //     if (el.userList.length !== 0) {
+  //       el.userList.forEach((e) => {
+  //         users.push({name: e.name, id: el.id});
+  //       });
+  //     }
+  //   });
+  //   users.filter(el => {
+  //     if (el.name === ) {
+  //       -1 oskar
+  //     }
+  //   });
+  //   console.log(users);
+  //   console.log(currentUsers);
+  // }
+
+  isExceeded(userList) {
+    let isExceeded = false;
+    userList.forEach(user => {
+      if (this.whoExceeded.includes(user.name)) {
+        isExceeded = true;
+      }
+    });
+    return isExceeded;
+  }
+
+  isExceeded2(userList) {
+    let isExceeded = false;
+    userList.forEach(user => {
+      if (this.whoExceeded2.includes(user.name)) {
+        isExceeded = true;
+      }
+    });
+    return isExceeded;
+  }
+
   calculateWipNext() {
-    this.nextLimitExceeded = false;
+    this.whoExceeded = [];
     const array_elements = [];
+
 
     this.next.forEach(el => {
       if (el.userList.length !== 0) {
-        array_elements.push(el.userList[0].name);
+        el.userList.forEach(x => {
+          array_elements.push(x.name);
+        });
       }
     });
 
     array_elements.sort();
-    
-
     let current = null;
     let  cnt = 0;
     for (let i = 0; i < array_elements.length; i++) {
@@ -131,7 +225,7 @@ export class TwoUserRowComponent implements OnInit {
             if (cnt > 0) {
                 // console.log(current + ' comes --> ' + cnt + ' times');
                 if (cnt >= 3) {
-                  this.nextLimitExceeded = true;
+                  this.whoExceeded.push(current);
                 }
             }
             current = array_elements[i];
@@ -143,35 +237,38 @@ export class TwoUserRowComponent implements OnInit {
     if (cnt > 0) {
         // console.log(current + ' comes --> ' + cnt + ' timess');
         if (cnt >= 3) {
-          this.nextLimitExceeded = true;
+          this.whoExceeded.push(current);
         }
     }
+    console.log(this.whoExceeded);
 
   }
 
   calculateWipInProgress() {
-    this.inProgressLimitExceeded = false;
-    const array_elements2 = [];
+    this.whoExceeded2 = [];
+    const array_elements = [];
     const arr = [...this.inProgress1, ...this.inProgress2, ...this.inProgress3, ...this.inProgress4, ...this.inProgress5];
     arr.forEach(el => {
       if (el.userList.length !== 0) {
-        array_elements2.push(el.userList[0].name);
+        el.userList.forEach(x => {
+          array_elements.push(x.name);
+        });
       }
     });
 
-    array_elements2.sort();
+    array_elements.sort();
 
     let current = null;
     let  cnt = 0;
-    for (let i = 0; i < array_elements2.length; i++) {
-        if (array_elements2[i] !== current) {
+    for (let i = 0; i < array_elements.length; i++) {
+        if (array_elements[i] !== current) {
             if (cnt > 0) {
                 // console.log(current + ' comes --> ' + cnt + ' times');
                 if (cnt >= 6) {
-                  this.inProgressLimitExceeded = true;
+                  this.whoExceeded2.push(current);
                 }
             }
-            current = array_elements2[i];
+            current = array_elements[i];
             cnt = 1;
         } else {
             cnt++;
@@ -180,9 +277,12 @@ export class TwoUserRowComponent implements OnInit {
     if (cnt > 0) {
         // console.log(current + ' comes --> ' + cnt + ' timess');
         if (cnt >= 6) {
-          this.inProgressLimitExceeded = true;
+          this.whoExceeded2.push(current);
         }
     }
+
+    console.log(this.whoExceeded2);
+
   }
 
 }

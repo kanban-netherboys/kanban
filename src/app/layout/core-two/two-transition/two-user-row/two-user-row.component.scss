@@ -101,7 +101,7 @@
   }
   
   .delete-icon {
-    display: none;
+    visibility: hidden;
     font-size: 19px; 
     margin-right:-14px; 
     margin-top:-6px;
@@ -109,11 +109,25 @@
   }
   
   .edit-icon {
-    display: none;
+    visibility: hidden;
     margin-right: 10px;
     font-size: 19px; 
     margin-top:-6px;
     color: grey;
+  }
+
+  .block-icon-long{
+    position: relative;
+    top: -18px;
+    right: 106px;
+    color: #f55151;
+  }
+
+  .block-icon-short {
+    position: relative;
+    top: -18px;
+    right: 65px;
+    color: #f55151;
   }
   
   .navigation-items {
@@ -125,26 +139,25 @@
   }
   
   .task:hover .edit-icon {
-      display: block;
+      visibility: visible;
   }
   
   .task:hover .delete-icon {
-      display: block;
+    visibility: visible;
   }
 
   .task-p:hover .edit-icon {
-    display: block;
+    visibility: visible;
 }
 
   .task-p:hover .delete-icon {
-      display: block;
+    visibility: visible;
   }
   
   .task {
     height: auto;
     background-color: white;
     border-radius: 5px 5px 0 0;
-    border-bottom: 4px solid #FFC400;  /*  this color should be changed with js */
     box-shadow: 0px 1px 3px #0000001A;
     padding: 10px;
     margin: 11px;
@@ -157,7 +170,6 @@
     height: auto;
     background-color: white;
     border-radius: 5px 5px 0 0;
-    border-bottom: 4px solid #FFC400;  /*  this color should be changed with js */
     box-shadow: 0px 1px 3px #0000001A;
     padding: 10px;
     margin: 11px;
@@ -184,7 +196,7 @@
     left: 7px;
     width: 22px;
     height: 22px;
-    background-color: #00000017;
+    background-color: #cbcbcb;
     border-radius: 50%;
     justify-content: center;
     margin-left: 3px;

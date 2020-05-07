@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-task-pop-up',
@@ -14,7 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class AddTaskPopUpComponent implements OnInit {
 
-  signupForm: FormGroup;
+  taskForm: FormGroup;
 
   editMode = false;
   editedTaskStatus: any;
@@ -22,11 +20,13 @@ export class AddTaskPopUpComponent implements OnInit {
   users: User[];
   rows = [1, 2, 3, 4];
 
+  colors = ['red', 'green', 'blue', 'yellow'];
+
   selectedUser1;
   selectedUser2;
   selectedUser3;
   selectedRow;
-  selectedColor;
+  selectedColor = 'none';
   none = 'None';
 
   constructor(private taskService: TaskService,
@@ -35,18 +35,20 @@ export class AddTaskPopUpComponent implements OnInit {
               private dialogRef: MatDialogRef<AddTaskPopUpComponent>) { }
 
   ngOnInit() {
-    this.signupForm = new FormGroup({
+    this.taskForm = new FormGroup({
       title: new FormControl(null),
       description: new FormControl(null),
-      person: new FormControl(null)
+      person: new FormControl(null),
+      block: new FormControl(false)
     });
 
     if (this.data.id !== undefined) {
       this.editMode = true;
       this.taskService.getSingleTask(this.data.id).subscribe((res: any) => {
         this.editedTaskStatus = res.kanbanTask.status;
-        this.signupForm.patchValue({title: res.kanbanTask.title});
-        this.signupForm.patchValue({description: res.kanbanTask.description});
+        this.taskForm.patchValue({title: res.kanbanTask.title});
+        this.taskForm.patchValue({description: res.kanbanTask.description});
+        this.taskForm.patchValue({block: res.kanbanTask.blocked});
         if (res.userList[0] !== undefined) {
           this.selectedUser1 = res.userList[0].name + ' ' + res.userList[0].surname;
         }
@@ -56,10 +58,10 @@ export class AddTaskPopUpComponent implements OnInit {
         if (res.userList[2] !== undefined) {
           this.selectedUser3 = res.userList[2].name + ' ' + res.userList[2].surname;
         }
+        this.selectedColor = res.kanbanTask.color;
       });
       this.taskService.getAllTasksWithRows().subscribe();
     }
-
     this.getAllUsers();
   }
 
@@ -69,44 +71,30 @@ export class AddTaskPopUpComponent implements OnInit {
     }
   }
 
-  addTask() {
-    const tit = this.signupForm.value.title;
-    const desc = this.signupForm.value.description;
-    const stat = this.data.status;
-    const selec = this.selectedRow;
+  onSubmit() {
+    let taskFormValue = {
+      title: this.taskForm.value.title,
+      description: this.taskForm.value.description,
+      status: this.editMode ? this.editedTaskStatus : this.data.status,
+      color: this.selectedColor,
+      blocked: this.taskForm.value.block,
+      userList: []
+    };
     const selectedUsers = [this.selectedUser1, this.selectedUser2, this.selectedUser3];
-    const objs = [];
     for (const selectedUser of selectedUsers) {
       const splitted = this.split(selectedUser);
       if (splitted !== undefined && splitted.length > 1) {
-        objs.push({name: splitted[0], surname: splitted[1]});
+        taskFormValue.userList.push({name: splitted[0], surname: splitted[1]});
       }
     }
-    this.taskService
-    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe();
-  }
-
-  editTask() {
-    const tit = this.signupForm.value.title;
-    const desc = this.signupForm.value.description;
-    const stat = this.editedTaskStatus;
-    const id = this.data.id;
-    // const stat = this.data.status;
-    const selec = 1;
-    const selectedUsers = [this.selectedUser1, this.selectedUser2, this.selectedUser3];
-    // this.taskService
-    // .patchTask({title: tit, description: desc, status: stat }, id).subscribe();
-    const objs = [];
-    for (const selectedUser of selectedUsers) {
-      const splitted = this.split(selectedUser);
-      if (splitted !== undefined && splitted.length > 1) {
-        objs.push({name: splitted[0], surname: splitted[1]});
-      }
+    if (this.editMode) {
+      taskFormValue = {...taskFormValue, ...{id: this.data.id}};
+      this.taskService.patchTaskWithUser(taskFormValue).subscribe(() => this.dialogRef.close());
     }
-    this.taskService
-    .addTaskToUser({userList: objs, title: tit, description: desc, status: stat, priority: selec}).subscribe();
-    this.taskService.deleteTask(id).subscribe();
-    this.dialogRef.close();
+    if (!this.editMode) {
+      taskFormValue = {...taskFormValue, ...{priority: this.selectedRow}};
+      this.taskService.addTaskWithUser(taskFormValue).subscribe(() => this.dialogRef.close());
+    }
   }
 
   getAllUsers() {

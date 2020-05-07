@@ -12,8 +12,8 @@ constructor(private http: HttpClient) { }
     return this.http.post(environment.apiUrl + 'KanbanTask', taskData, { responseType: 'text' });
   }
 
-  addTaskToUser(taskData) {
-    return this.http.post(environment.apiUrl + 'User/AddTaskToUser', taskData, { responseType: 'text' });
+  addTaskWithUser(taskData) {
+    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', taskData, { responseType: 'text' });
   }
 
   deleteTask(id: number) {
@@ -50,6 +50,10 @@ constructor(private http: HttpClient) { }
 
   getAllTasksWithRows() {
     return this.http.get(environment.apiUrl + 'KanbanTask/AllTasksWithSamePriority');
+  }
+
+  patchTaskWithUser(task) {
+    return this.http.patch(environment.apiUrl + 'User/PatchTaskWithUser', task, {responseType: 'text'});
   }
 
 }

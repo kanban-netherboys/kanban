@@ -36,7 +36,6 @@ export class TwoTransitionComponent implements OnInit {
   getAllTasksWithRows() {
     this.taskService.getAllTasksWithRows().subscribe((res: any) => {
       this.rowsAndTasks = res.tasksList;
-      // console.log(res);
     });
   }
 
