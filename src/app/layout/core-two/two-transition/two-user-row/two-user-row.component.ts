@@ -18,11 +18,6 @@ export class TwoUserRowComponent implements OnInit {
   @Output() del = new EventEmitter();
   @Output() edit = new EventEmitter();
 
-  // WIPLimit = 3;
-  limitWarning = 'Exceeded!';
-
-  inProgressLimitExceeded = false;
-
   tasks: Task[];
   backlog = [];
   next = [];
@@ -108,9 +103,6 @@ export class TwoUserRowComponent implements OnInit {
           const title = event.container.data[event.currentIndex].title;
           const description = event.container.data[event.currentIndex].description;
           const id = event.container.data[event.currentIndex].id;
-          const users = event.container.data[event.currentIndex].userList;
-          console.log(users);
-          // this.checkForVip(event.container.data, users);
           this.taskService.patchTaskStatus({status: status}, id).subscribe(() => {
             this.taskService.patchProgressStatus({progressStatus: progStat}, id).subscribe(() => {
               this.calculateWipNext();
@@ -122,6 +114,98 @@ export class TwoUserRowComponent implements OnInit {
 
   delTask(id: number) {
     this.del.emit(id);
+  }
+
+  isExceeded(userList) {
+    let isExceeded = false;
+    userList.forEach(user => {
+      if (this.whoExceeded.includes(user.name)) {
+        isExceeded = true;
+      }
+    });
+    return isExceeded;
+  }
+
+  isExceeded2(userList) {
+    let isExceeded = false;
+    userList.forEach(user => {
+      if (this.whoExceeded2.includes(user.name)) {
+        isExceeded = true;
+      }
+    });
+    return isExceeded;
+  }
+
+  calculateWipNext() {
+    this.whoExceeded = [];
+    const array_elements = [];
+
+
+    this.next.forEach(el => {
+      if (el.userList.length !== 0) {
+        el.userList.forEach(x => {
+          array_elements.push(x.name);
+        });
+      }
+    });
+
+    array_elements.sort();
+    let current = null;
+    let  cnt = 0;
+    for (let i = 0; i < array_elements.length; i++) {
+        if (array_elements[i] !== current) {
+            if (cnt > 0) {
+                if (cnt >= 3) {
+                  this.whoExceeded.push(current);
+                }
+            }
+            current = array_elements[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        if (cnt >= 3) {
+          this.whoExceeded.push(current);
+        }
+    }
+  }
+
+  calculateWipInProgress() {
+    this.whoExceeded2 = [];
+    const array_elements = [];
+    const arr = [...this.inProgress1, ...this.inProgress2, ...this.inProgress3, ...this.inProgress4, ...this.inProgress5];
+    arr.forEach(el => {
+      if (el.userList.length !== 0) {
+        el.userList.forEach(x => {
+          array_elements.push(x.name);
+        });
+      }
+    });
+
+    array_elements.sort();
+
+    let current = null;
+    let  cnt = 0;
+    for (let i = 0; i < array_elements.length; i++) {
+        if (array_elements[i] !== current) {
+            if (cnt > 0) {
+                if (cnt >= 6) {
+                  this.whoExceeded2.push(current);
+                }
+            }
+            current = array_elements[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        if (cnt >= 6) {
+          this.whoExceeded2.push(current);
+        }
+    }
   }
 
   setBackgroundColor(color) {
@@ -164,125 +248,6 @@ export class TwoUserRowComponent implements OnInit {
     } else {
       return '#dedede';
     }
-  }
-
-  // checkForVip(data, currentUsers) {
-  //   const users = [];
-  //   data.forEach(el => {
-  //     if (el.userList.length !== 0) {
-  //       el.userList.forEach((e) => {
-  //         users.push({name: e.name, id: el.id});
-  //       });
-  //     }
-  //   });
-  //   users.filter(el => {
-  //     if (el.name === ) {
-  //       -1 oskar
-  //     }
-  //   });
-  //   console.log(users);
-  //   console.log(currentUsers);
-  // }
-
-  isExceeded(userList) {
-    let isExceeded = false;
-    userList.forEach(user => {
-      if (this.whoExceeded.includes(user.name)) {
-        isExceeded = true;
-      }
-    });
-    return isExceeded;
-  }
-
-  isExceeded2(userList) {
-    let isExceeded = false;
-    userList.forEach(user => {
-      if (this.whoExceeded2.includes(user.name)) {
-        isExceeded = true;
-      }
-    });
-    return isExceeded;
-  }
-
-  calculateWipNext() {
-    this.whoExceeded = [];
-    const array_elements = [];
-
-
-    this.next.forEach(el => {
-      if (el.userList.length !== 0) {
-        el.userList.forEach(x => {
-          array_elements.push(x.name);
-        });
-      }
-    });
-
-    array_elements.sort();
-    let current = null;
-    let  cnt = 0;
-    for (let i = 0; i < array_elements.length; i++) {
-        if (array_elements[i] !== current) {
-            if (cnt > 0) {
-                // console.log(current + ' comes --> ' + cnt + ' times');
-                if (cnt >= 3) {
-                  this.whoExceeded.push(current);
-                }
-            }
-            current = array_elements[i];
-            cnt = 1;
-        } else {
-            cnt++;
-        }
-    }
-    if (cnt > 0) {
-        // console.log(current + ' comes --> ' + cnt + ' timess');
-        if (cnt >= 3) {
-          this.whoExceeded.push(current);
-        }
-    }
-    console.log(this.whoExceeded);
-
-  }
-
-  calculateWipInProgress() {
-    this.whoExceeded2 = [];
-    const array_elements = [];
-    const arr = [...this.inProgress1, ...this.inProgress2, ...this.inProgress3, ...this.inProgress4, ...this.inProgress5];
-    arr.forEach(el => {
-      if (el.userList.length !== 0) {
-        el.userList.forEach(x => {
-          array_elements.push(x.name);
-        });
-      }
-    });
-
-    array_elements.sort();
-
-    let current = null;
-    let  cnt = 0;
-    for (let i = 0; i < array_elements.length; i++) {
-        if (array_elements[i] !== current) {
-            if (cnt > 0) {
-                // console.log(current + ' comes --> ' + cnt + ' times');
-                if (cnt >= 6) {
-                  this.whoExceeded2.push(current);
-                }
-            }
-            current = array_elements[i];
-            cnt = 1;
-        } else {
-            cnt++;
-        }
-    }
-    if (cnt > 0) {
-        // console.log(current + ' comes --> ' + cnt + ' timess');
-        if (cnt >= 6) {
-          this.whoExceeded2.push(current);
-        }
-    }
-
-    console.log(this.whoExceeded2);
-
   }
 
 }
