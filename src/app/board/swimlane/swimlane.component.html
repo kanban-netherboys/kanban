@@ -32,7 +32,7 @@
       <div cdkDropList [cdkDropListData]="next" class="tasks-tab" (cdkDropListDropped)="drop($event, 'Next')">
         <div class="task" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of next" cdkDrag
           [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-            isExceeded(item.userList) ? '4px solid red' : 'none'
+          isNextExceeded(item.userList) ? '4px solid red' : 'none'
           ">
           <div class="navigation-items">
             <span class="block-icon-long material-icons" *ngIf="item.blocked">report</span>
@@ -60,7 +60,7 @@
           (cdkDropListDropped)="drop($event, 'InProgress', 1)">
           <div class="task-p" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of inProgress1"
             cdkDrag [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-              isExceeded2(item.userList) ? '4px solid red' : 'none'
+            isInProgressExceeded(item.userList) ? '4px solid red' : 'none'
             ">
             <div class="navigation-items">
               <span class="block-icon-short material-icons" *ngIf="item.blocked">report</span>
@@ -87,7 +87,7 @@
           (cdkDropListDropped)="drop($event, 'InProgress', 2)">
           <div class="task-p" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of inProgress2"
             cdkDrag [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-              isExceeded2(item.userList) ? '4px solid red' : 'none'
+            isInProgressExceeded(item.userList) ? '4px solid red' : 'none'
             ">
             <div class="navigation-items">
               <span class="block-icon-short material-icons" *ngIf="item.blocked">report</span>
@@ -114,7 +114,7 @@
           (cdkDropListDropped)="drop($event, 'InProgress', 3)">
           <div class="task-p" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of inProgress3"
             cdkDrag [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-              isExceeded2(item.userList) ? '4px solid red' : 'none'
+            isInProgressExceeded(item.userList) ? '4px solid red' : 'none'
             ">
             <div class="navigation-items">
               <span class="block-icon-short material-icons" *ngIf="item.blocked">report</span>
@@ -141,7 +141,7 @@
           (cdkDropListDropped)="drop($event, 'InProgress', 4)">
           <div class="task-p" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of inProgress4"
             cdkDrag [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-              isExceeded2(item.userList) ? '4px solid red' : 'none'
+            isInProgressExceeded(item.userList) ? '4px solid red' : 'none'
             ">
             <div class="navigation-items">
               <span class="block-icon-short material-icons" *ngIf="item.blocked">report</span>
@@ -168,7 +168,7 @@
           (cdkDropListDropped)="drop($event, 'InProgress', 5)">
           <div class="task-p" [style.borderBottom]="setBorderBottomColor(item.color)" *ngFor="let item of inProgress5"
             cdkDrag [style.backgroundColor]="setBackgroundColor(item.color)" [style.borderTop]="
-              isExceeded2(item.userList) ? '4px solid red' : 'none'
+            isInProgressExceeded(item.userList) ? '4px solid red' : 'none'
             ">
             <div class="navigation-items">
               <span class="block-icon-short material-icons" *ngIf="item.blocked">report</span>

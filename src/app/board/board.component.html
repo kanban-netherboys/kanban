@@ -1,7 +1,3 @@
-<button mat-fab class="add-user" (click)="addUserDialog()">
-  Add<br />user
-</button>
-
 <div class="wrapper">
   <div cdkDropListGroup fxLayout="row" style="padding: 20px;">
     <div class="tasks-tab-row">
@@ -60,3 +56,7 @@
 
 <app-swimlane *ngFor="let rowAndTasks of rowsAndTasks" [rowAndTasks]="rowAndTasks" (del)="delTask($event)"
   (edit)="reloadTasks()"></app-swimlane>
+
+  <button mat-fab class="add-user" (click)="addUserDialog()">
+    Add<br />user
+  </button>

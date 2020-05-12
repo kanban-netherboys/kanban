@@ -3,6 +3,7 @@ import { TaskService } from 'src/app/shared/services/task.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { AddUserPopUpComponent } from 'src/app/shared/components/add-user-pop-up/add-user-pop-up.component';
 import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up/add-task-pop-up.component';
+import { Task } from '../shared/models/task.model';
 
 @Component({
   selector: 'app-board',
@@ -10,13 +11,12 @@ import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-
   backlog = [];
   next = [];
   inProgress = [];
   done = [];
 
-  rowsAndTasks;
+  rowsAndTasks: Task[];
 
   constructor(private taskService: TaskService,
               private dialogService: DialogService) { }
@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
   }
 
   getAllTasksWithRows() {
-    this.taskService.getAllTasksWithRows().subscribe((res: any) => {
+    this.taskService.getAllTasksWithRows().subscribe((res: {tasksList: Task[]}) => {
       this.rowsAndTasks = res.tasksList;
     });
   }
@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit {
 
   addTaskDialog(status: string) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { status: status },
+      data: { status },
       height: '685px',
       width: '500px',
     });
@@ -58,5 +58,5 @@ export class BoardComponent implements OnInit {
   reloadTasks() {
     this.getAllTasksWithRows();
   }
-
 }
+

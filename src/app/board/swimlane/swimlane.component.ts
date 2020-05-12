@@ -14,12 +14,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./swimlane.component.scss']
 })
 export class SwimlaneComponent implements OnInit {
-
-  @Input() rowAndTasks;
+  @Input() rowAndTasks: {kanbanTasksList: Task[], priority: number};
   @Output() del = new EventEmitter();
   @Output() edit = new EventEmitter();
 
-  tasks: Task[];
   backlog = [];
   next = [];
   inProgress = [];
@@ -32,8 +30,6 @@ export class SwimlaneComponent implements OnInit {
   inProgress4 = [];
   inProgress5 = [];
 
-  tasksWithUsers = [];
-
   users: User[];
 
   colors = {
@@ -43,8 +39,8 @@ export class SwimlaneComponent implements OnInit {
     blue: '#8787f5'
   };
 
-  whoExceeded = [];
-  whoExceeded2 = [];
+  nextExceeded = [];
+  inProgressExceeded = [];
 
   constructor(private taskService: TaskService,
               private dialogService: DialogService,
@@ -83,7 +79,7 @@ export class SwimlaneComponent implements OnInit {
 
   editTaskDialog(id: number) {
     const dialogRef = this.dialogService.openDialog(AddTaskPopUpComponent, {
-      data: { id: id },
+      data: { id },
       height: '685px',
       width: '500px',
     });
@@ -102,14 +98,12 @@ export class SwimlaneComponent implements OnInit {
             event.container.data,
             event.previousIndex,
             event.currentIndex);
-          const title = event.container.data[event.currentIndex].title;
-          const description = event.container.data[event.currentIndex].description;
           const id = event.container.data[event.currentIndex].id;
-          this.taskService.patchTaskStatus({status: status}, id).subscribe(() => {
+          this.taskService.patchTaskStatus({ status }, id).subscribe(() => {
             this.taskService.patchProgressStatus({progressStatus: progStat}, id).subscribe(() => {
               this.calculateWipNext();
               this.calculateWipInProgress();
-              if (this.whoExceeded.length > 0 || this.whoExceeded2.length > 0) {
+              if (this.nextExceeded.length > 0 || this.inProgressExceeded.length > 0) {
                 this._snackBar.open('Limit has been exceeded!', null, {
                   duration: 3000,
                   panelClass: ['snackbar']
@@ -124,20 +118,18 @@ export class SwimlaneComponent implements OnInit {
     this.del.emit(id);
   }
 
-  isExceeded(userList) {
-    let isExceeded = false;
-    userList.forEach(user => {
-      if (this.whoExceeded.includes(user.name)) {
-        isExceeded = true;
-      }
-    });
-    return isExceeded;
+  isNextExceeded(userList: User[]) {
+    return this.listContainsUser(userList, this.nextExceeded);
   }
 
-  isExceeded2(userList) {
+  isInProgressExceeded(userList: User[]) {
+    return this.listContainsUser(userList, this.inProgressExceeded);
+  }
+
+  listContainsUser(userList: User[], who: string[]) {
     let isExceeded = false;
     userList.forEach(user => {
-      if (this.whoExceeded2.includes(user.name)) {
+      if (who.includes(user.name)) {
         isExceeded = true;
       }
     });
@@ -145,7 +137,7 @@ export class SwimlaneComponent implements OnInit {
   }
 
   calculateWipNext() {
-    this.whoExceeded = [];
+    this.nextExceeded = [];
     const array_elements = [];
 
 
@@ -164,7 +156,7 @@ export class SwimlaneComponent implements OnInit {
         if (array_elements[i] !== current) {
             if (cnt > 0) {
                 if (cnt >= 3) {
-                  this.whoExceeded.push(current);
+                  this.nextExceeded.push(current);
                 }
             }
             current = array_elements[i];
@@ -175,13 +167,13 @@ export class SwimlaneComponent implements OnInit {
     }
     if (cnt > 0) {
         if (cnt >= 3) {
-          this.whoExceeded.push(current);
+          this.nextExceeded.push(current);
         }
     }
   }
 
   calculateWipInProgress() {
-    this.whoExceeded2 = [];
+    this.inProgressExceeded = [];
     const array_elements = [];
     const arr = [...this.inProgress1, ...this.inProgress2, ...this.inProgress3, ...this.inProgress4, ...this.inProgress5];
     arr.forEach(el => {
@@ -200,7 +192,7 @@ export class SwimlaneComponent implements OnInit {
         if (array_elements[i] !== current) {
             if (cnt > 0) {
                 if (cnt >= 6) {
-                  this.whoExceeded2.push(current);
+                  this.inProgressExceeded.push(current);
                 }
             }
             current = array_elements[i];
@@ -211,12 +203,12 @@ export class SwimlaneComponent implements OnInit {
     }
     if (cnt > 0) {
         if (cnt >= 6) {
-          this.whoExceeded2.push(current);
+          this.inProgressExceeded.push(current);
         }
     }
   }
 
-  setBackgroundColor(color) {
+  setBackgroundColor(color: string) {
     if (color === 'yellow') {
       return '#FFF7DE';
     } else if (color === 'green') {
@@ -230,7 +222,7 @@ export class SwimlaneComponent implements OnInit {
     }
   }
 
-  setBorderBottomColor(color) {
+  setBorderBottomColor(color: string) {
     if (color === 'yellow') {
       return '4px solid #ffe488';
     } else if (color === 'green') {
@@ -244,7 +236,7 @@ export class SwimlaneComponent implements OnInit {
     }
   }
 
-  setOwnerIconColor(color) {
+  setOwnerIconColor(color: string) {
     if (color === 'yellow') {
       return '#ffe488';
     } else if (color === 'green') {
