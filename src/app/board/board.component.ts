@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from 'src/app/shared/models/task.model';
 import { TaskService } from 'src/app/shared/services/task.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import { AddUserPopUpComponent } from 'src/app/shared/components/add-user-pop-up/add-user-pop-up.component';
 import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up/add-task-pop-up.component';
 
@@ -13,21 +11,15 @@ import { AddTaskPopUpComponent } from 'src/app/shared/components/add-task-pop-up
 })
 export class BoardComponent implements OnInit {
 
-  WIPLimit = 3;
-  limitWarning = 'Exceeded!';
-
-  tasks: Task[];
   backlog = [];
   next = [];
   inProgress = [];
   done = [];
 
-  usersAndTasks;
   rowsAndTasks;
 
   constructor(private taskService: TaskService,
-              private dialogService: DialogService,
-              private userService: UserService) { }
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.getAllTasksWithRows();

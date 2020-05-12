@@ -8,30 +8,33 @@ import { DialogService } from './services/dialog.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddUserPopUpComponent } from './components/add-user-pop-up/add-user-pop-up.component';
 import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
         AddTaskPopUpComponent,
-        AddUserPopUpComponent
+        AddUserPopUpComponent,
     ],
     imports: [
         CommonModule,
         MaterialModule,
         FlexLayoutModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
     ],
     exports: [
         CommonModule,
         MaterialModule,
         FlexLayoutModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
     ],
     providers: [
         TaskService,
         DialogService,
-        UserService
+        UserService,
     ]
 })
 export class SharedModule {}
