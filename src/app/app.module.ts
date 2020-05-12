@@ -8,7 +8,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreOneOldModule } from './shared/components/core-one-old/core-one-old.module';
-import { CoreTwoModule } from './layout/core-two/core-two.module';
+import { BoardModule } from './layout/board/board.module';
 
 @NgModule({
    declarations: [
@@ -22,7 +22,7 @@ import { CoreTwoModule } from './layout/core-two/core-two.module';
       BrowserAnimationsModule,
       SharedModule,
       CoreOneOldModule,
-      CoreTwoModule
+      BoardModule
    ],
    providers: [],
    bootstrap: [
