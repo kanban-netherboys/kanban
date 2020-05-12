@@ -1,3 +1,62 @@
-<p>
-  core-two works!
-</p>
+<button mat-fab class="add-user" (click)="addUserDialog()">
+  Add<br />user
+</button>
+
+<div class="wrapper">
+  <div cdkDropListGroup fxLayout="row" style="padding: 20px;">
+    <div class="tasks-tab-row">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title" style="justify-content: center; padding-top: 14px;">
+          PRIORITY
+        </div>
+      </div>
+    </div>
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color: #41a1f5;">list</span>
+          BACKLOG
+          <span class="material-icons help-icon-backlog" style="color: #41a1f5;"
+            matTooltip="New tasks that are not being currently worked on">help</span>
+          <span class="add-task-button" style="color: #41a1f5;" (click)="addTaskDialog('Backlog')">+</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color: #e8577a;">list</span>
+          NEXT
+          <span class="material-icons help-icon-next" style="color: #e8577a;"
+            matTooltip="Tasks with a highter priority that will be worked on in near future">help</span>
+          <span class="add-task-button" style="color: #e8577a;" (click)="addTaskDialog('Next')">+</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab-p">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color: #ffc400;">list</span>
+          IN PROGRESS
+          <span class="material-icons help-icon-progress" style="color: #ffc400;"
+            matTooltip="Tasks that are currently being completed.">help</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-tab">
+      <div class="tasks-tab-header">
+        <div class="task-tab-title">
+          <span class="material-icons" style="color: #45e217;">list</span>
+          DONE
+          <span class="material-icons help-icon-done" style="color: #45e217;" matTooltip="Completed tasks">help</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-swimlane *ngFor="let rowAndTasks of rowsAndTasks" [rowAndTasks]="rowAndTasks" (del)="delTask($event)"
+  (edit)="reloadTasks()"></app-swimlane>

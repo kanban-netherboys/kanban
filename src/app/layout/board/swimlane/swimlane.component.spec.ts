@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TwoUserRowComponent } from './two-user-row.component';
+import { SwimlaneComponent } from './swimlane.component';
 
 describe('TwoUserRowComponent', () => {
-  let component: TwoUserRowComponent;
-  let fixture: ComponentFixture<TwoUserRowComponent>;
+  let component: SwimlaneComponent ;
+  let fixture: ComponentFixture<SwimlaneComponent >;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TwoUserRowComponent ]
+      declarations: [ SwimlaneComponent  ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TwoUserRowComponent);
+    fixture = TestBed.createComponent(SwimlaneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

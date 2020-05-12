@@ -9,11 +9,11 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-two-user-row',
-  templateUrl: './two-user-row.component.html',
-  styleUrls: ['./two-user-row.component.scss']
+  selector: 'app-swimlane',
+  templateUrl: './swimlane.component.html',
+  styleUrls: ['./swimlane.component.scss']
 })
-export class TwoUserRowComponent implements OnInit {
+export class SwimlaneComponent implements OnInit {
 
   @Input() rowAndTasks;
   @Output() del = new EventEmitter();
