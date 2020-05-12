@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { CoreOneOldModule } from './shared/components/core-one-old/core-one-old.module';
 import { BoardModule } from './layout/board/board.module';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { BoardModule } from './layout/board/board.module';
       AppRoutingModule,
       BrowserAnimationsModule,
       SharedModule,
-      CoreOneOldModule,
       BoardModule
    ],
    providers: [],
