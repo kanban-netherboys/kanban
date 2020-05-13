@@ -4,10 +4,10 @@ export interface Task {
     title: string;
     description: string;
     status: string;
-    progressStatus: number;
+    progressStatus?: number;
     blocked: boolean;
     color: string;
-    id: number;
+    id?: number;
     priority?: number;
-    userList?: Array<User>;
+    userList: Array<User>;
 }

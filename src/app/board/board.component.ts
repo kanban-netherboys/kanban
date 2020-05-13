@@ -22,10 +22,10 @@ export class BoardComponent implements OnInit {
               private dialogService: DialogService) { }
 
   ngOnInit() {
-    this.getAllTasksWithRows();
+    this.getTasksByPriority();
   }
 
-  getAllTasksWithRows() {
+  getTasksByPriority() {
     this.taskService.getTasksByPriority().subscribe((res: {tasksList: Task[]}) => {
       this.rowsAndTasks = res.tasksList;
     });
@@ -34,7 +34,7 @@ export class BoardComponent implements OnInit {
   addUserDialog() {
     const dialogRef = this.dialogService.openDialog(AddUserPopUpComponent);
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTasksWithRows();
+      this.getTasksByPriority();
     });
   }
 
@@ -45,18 +45,18 @@ export class BoardComponent implements OnInit {
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTasksWithRows();
+      this.getTasksByPriority();
     });
   }
 
   delTask(id: number) {
     this.taskService.deleteTask(id).subscribe(() => {
-      this.getAllTasksWithRows();
+      this.getTasksByPriority();
     });
   }
 
   reloadTasks() {
-    this.getAllTasksWithRows();
+    this.getTasksByPriority();
   }
 }
 

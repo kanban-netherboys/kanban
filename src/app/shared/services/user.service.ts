@@ -7,8 +7,8 @@ import { User } from '../models/user.model';
 export class UserService {
 
 constructor(private http: HttpClient) { }
-    addUser(userData: User) {
-        return this.http.post(environment.apiUrl + 'User/AddUser', userData, { responseType: 'text' });
+    addUser(user: User) {
+        return this.http.post(environment.apiUrl + 'User/AddUser', user, { responseType: 'text' });
     }
 
     getAllUsers() {

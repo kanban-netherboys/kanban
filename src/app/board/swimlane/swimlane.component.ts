@@ -99,7 +99,7 @@ export class SwimlaneComponent implements OnInit {
             event.previousIndex,
             event.currentIndex);
           const id = event.container.data[event.currentIndex].id;
-          this.taskService.patchTaskStatus({ status }, id).subscribe(() => {
+          this.taskService.patchTaskStatus({status}, id).subscribe(() => {
             this.taskService.patchTaskProgressStatus({progressStatus: progStat}, id).subscribe(() => {
               this.calculateWipNext();
               this.calculateWipInProgress();

@@ -7,19 +7,19 @@ import { Task } from '../models/task.model';
 export class TaskService {
 
 constructor(private http: HttpClient) { }
-  addTaskWithUser(taskData) {
-    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', taskData, { responseType: 'text' });
+  addTaskWithUser(task: Task) {
+    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', task, { responseType: 'text' });
   }
 
-  patchTaskStatus(status, id: number) {
+  patchTaskStatus(status: {status: string}, id: number) {
     return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskStatus?kanbanTaskId=' + id, status, { responseType: 'text' });
   }
 
-  patchTaskProgressStatus(status, id: number) {
-    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskProgressStatus?kanbanTaskId=' + id, status, {responseType: 'text'});
+  patchTaskProgressStatus(progStat: {progressStatus: number}, id: number) {
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskProgressStatus?kanbanTaskId=' + id, progStat, {responseType: 'text'});
   }
 
-  patchTaskWithUser(task) {
+  patchTaskWithUser(task: Task) {
     return this.http.patch(environment.apiUrl + 'User/PatchTaskWithUser', task, { responseType: 'text' });
   }
 
