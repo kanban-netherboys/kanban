@@ -60,7 +60,7 @@ export class AddTaskPopUpComponent implements OnInit {
         }
         this.selectedColor = res.kanbanTask.color;
       });
-      this.taskService.getAllTasksWithRows().subscribe();
+      this.taskService.getTasksByPriority().subscribe();
     }
     this.getAllUsers();
   }

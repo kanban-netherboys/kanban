@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
   }
 
   getAllTasksWithRows() {
-    this.taskService.getAllTasksWithRows().subscribe((res: {tasksList: Task[]}) => {
+    this.taskService.getTasksByPriority().subscribe((res: {tasksList: Task[]}) => {
       this.rowsAndTasks = res.tasksList;
     });
   }
