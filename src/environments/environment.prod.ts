@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://kanbanfinal.azurewebsites.net/',
+  apiUrl: 'https://kanbanv1.azurewebsites.net/',
   production: true
 };
