@@ -8,11 +8,11 @@ export class TaskService {
 
 constructor(private http: HttpClient) { }
   addTaskWithUser(task: Task) {
-    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', task, { responseType: 'text' });
+    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', task, {responseType: 'text'});
   }
 
   patchTaskStatus(status: {status: string}, id: number) {
-    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskStatus?kanbanTaskId=' + id, status, { responseType: 'text' });
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskStatus?kanbanTaskId=' + id, status, {responseType: 'text'});
   }
 
   patchTaskProgressStatus(progStat: {progressStatus: number}, id: number) {
@@ -20,7 +20,7 @@ constructor(private http: HttpClient) { }
   }
 
   patchTaskWithUser(task: Task) {
-    return this.http.patch(environment.apiUrl + 'User/PatchTaskWithUser', task, { responseType: 'text' });
+    return this.http.patch(environment.apiUrl + 'User/PatchTaskWithUser', task, {responseType: 'text'});
   }
 
   getSingleTask(id: number) {
@@ -32,7 +32,7 @@ constructor(private http: HttpClient) { }
   }
 
   deleteTask(id: number) {
-    return this.http.delete(environment.apiUrl + 'KanbanTask/DeleteTask?kanbanTaskId=' + id, { responseType: 'text' });
+    return this.http.delete(environment.apiUrl + 'KanbanTask/DeleteTask?kanbanTaskId=' + id, {responseType: 'text'});
   }
 }
 
