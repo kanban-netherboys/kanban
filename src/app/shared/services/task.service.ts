@@ -8,7 +8,7 @@ export class TaskService {
 
 constructor(private http: HttpClient) { }
   addTaskWithUser(task: Task) {
-    return this.http.post(environment.apiUrl + 'User/AddTaskWithUser', task, {responseType: 'text'});
+    return this.http.post(environment.apiUrl + 'KanbanTask/AddTaskWithUser', task, {responseType: 'text'});
   }
 
   patchTaskStatus(status: {status: string}, id: number) {
@@ -20,7 +20,7 @@ constructor(private http: HttpClient) { }
   }
 
   patchTaskWithUser(task: Task) {
-    return this.http.patch(environment.apiUrl + 'User/PatchTaskWithUser', task, {responseType: 'text'});
+    return this.http.patch(environment.apiUrl + 'KanbanTask/PatchTaskWithUser', task, {responseType: 'text'});
   }
 
   getSingleTask(id: number) {
