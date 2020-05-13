@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://localhost:44346/api/',
+  apiUrl: 'https://kanbanfinal.azurewebsites.net/',
   production: true
 };
